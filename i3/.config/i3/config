@@ -3,7 +3,6 @@
 
 exec_always --no-startup-id ~/.config/polybar/launch.sh 
 exec_always --no-startup-id ~/.config/i3/feh.sh
-exec_always --no-startup-id "picom -b --config ~/.config/picom/picom.conf"
 
 # Modkey (windows key)
 set $mod Mod4
@@ -115,6 +114,9 @@ bindsym $mod+Shift+2 move container to workspace number $ws2
 bindsym $mod+Shift+3 move container to workspace number $ws3
 bindsym $mod+Shift+4 move container to workspace number $ws4
 bindsym $mod+Shift+5 move container to workspace number $ws5
+
+# move between workspaces
+bindsym $mod+Tab workspace next
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
