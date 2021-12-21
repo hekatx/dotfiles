@@ -1,29 +1,4 @@
 lua << EOF
--- Completion config with cmp
-local cmp = require'cmp'
-
-cmp.setup {
-  snippet = {
-    expand = function(args)
-      vim.fn['vsnip#anonymous'](args.body)
-    end
-  },
-
-  mapping = {
-    ['<CR>'] = cmp.mapping.confirm({ select = true })
-  },
-
-  sources = {
-    { name = "path"},
-    { name = "nvim_lsp"},
-  },
-}
-
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
-require'lspconfig'.ccls.setup {
-  capabilities = capabilities,
-}
 
 local lspconfig = require("lspconfig")
 local buf_map = function(bufnr, mode, lhs, rhs, opts)
@@ -64,6 +39,7 @@ local on_attach = function(client, bufnr)
         vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
     end
 end
+
 lspconfig.tsserver.setup({
     on_attach = function(client, bufnr)
         client.resolved_capabilities.document_formatting = false
@@ -79,8 +55,5 @@ lspconfig.tsserver.setup({
        },
 })
 
-
--- C++ config lsp
-lspconfig.ccls.setup({ on_attach = on_attach })
-
+require'lspconfig'.eslint.setup{}
 EOF

@@ -18,5 +18,3 @@ set termguicolors
 set list 
 set lcs=tab:\|\ 
 
-let g:netrw_keepdir=0
-set browsedir=current 

@@ -16,5 +16,7 @@ vnoremap <leader>p "_dP
 
 nnoremap <leader>cg <cmd>CMakeGenerate<cr>
 nnoremap <leader>cb <cmd>CMakeBuild<cr>
+nnoremap <leader>\ <cmd>e ~/.config/nvim<cr>
 
-
+" autocommands
+autocmd BufWritePre *.ts,*.tsx,*.js,*.jsx,*.json :EslintFixAll
