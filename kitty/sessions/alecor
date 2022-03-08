@@ -1,0 +1,13 @@
+cd ~/work_stuff/aleatica-cornerstone-dashboard/
+title nvim
+launch sh -c "nvim ."
+
+new_tab server
+cd ~/work_stuff/aleatica-cornerstone-dashboard/
+launch sh -c "npm run webpack-dev-w"
+title webpack
+launch sh -c "npm run server"
+title server
+
+new_tab git
+cd ~/work_stuff/aleatica-cornerstone-dashboard/

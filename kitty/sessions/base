@@ -1,0 +1,10 @@
+cd ~/work_stuff/base_dashboard/
+title nvim
+launch sh -c "nvim ."
+
+new_tab server
+cd ~/work_stuff/base_dashboard/
+launch sh -c "npm run dev"
+
+new_tab git
+cd ~/work_stuff/base_dashboard/

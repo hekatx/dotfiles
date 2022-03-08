@@ -1,12 +1,11 @@
 lua << EOF
-local catppuccino = require("catppuccino")
+local catppuccin = require("catppuccin")
 
 -- configure it
-catppuccino.setup(
+catppuccin.setup(
     {
-		colorscheme = "dark_catppuccino",
-		transparency = false,
-  	term_colors = false,
+		transparent_background = true,
+		term_colors = true,
 		styles = {
 			comments = "italic",
 			functions = "italic",
@@ -29,10 +28,10 @@ catppuccino.setup(
 					hints = "underline",
 					warnings = "underline",
 					information = "underline",
-				}
+				},
 			},
 			lsp_trouble = false,
-			lsp_saga = true,
+			lsp_saga = false,
 			gitgutter = false,
 			gitsigns = false,
 			telescope = true,
@@ -42,22 +41,20 @@ catppuccino.setup(
 			},
 			which_key = false,
 			indent_blankline = {
-				enabled = true,
-				colored_indent_levels = true,
+				enabled = false,
+				colored_indent_levels = false,
 			},
 			dashboard = false,
 			neogit = false,
 			vim_sneak = false,
 			fern = false,
 			barbar = false,
-			bufferline = true,
+			bufferline = false,
 			markdown = false,
-			lightspeed = false,
+			lightspeed = true,
 			ts_rainbow = false,
 			hop = false,
-		}
+		},
 	}
 )
 EOF
-
-" Vim Script

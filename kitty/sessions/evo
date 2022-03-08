@@ -1,0 +1,10 @@
+cd ~/work_stuff/clean_intel/intel-evorobot-dashfront
+title nvim
+launch sh -c "nvim ."
+
+new_tab server
+cd ~/work_stuff/clean_intel/intel-evorobot-dashfront
+launch sh -c "npm run dev"
+
+new_tab git
+cd ~/work_stuff/clean_intel/intel-evorobot-dashfront

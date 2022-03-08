@@ -1,0 +1,10 @@
+cd ~/work_stuff/nestle-aburger-dashboard-front/
+title nvim
+launch sh -c "nvim ."
+
+new_tab server
+cd ~/work_stuff/nestle-aburger-dashboard-front/
+launch sh -c "npm run dev"
+
+new_tab git
+cd ~/work_stuff/nestle-aburger-dashboard-front/
