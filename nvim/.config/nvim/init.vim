@@ -20,15 +20,33 @@ Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'
-Plug 'Pocco81/Catppuccino.nvim'
 Plug 'puremourning/vimspector', {'do': 'python3 install_gadget.py --enable-vscode-cpptools'}
 Plug 'cdelledonne/vim-cmake'
 Plug 'SirVer/ultisnips'
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'
 Plug 'honza/vim-snippets'
+Plug 'ggandor/lightspeed.nvim'
+Plug 'catppuccin/nvim'
+Plug 'shaunsingh/moonlight.nvim'
+Plug 'mangeshrex/uwu.vim'
+Plug 'sainnhe/sonokai'
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
+Plug 'nvim-neorg/neorg'
+Plug 'nvim-neorg/neorg-telescope'
 call plug#end()
 
 " Colorscheme
-colorscheme catppuccino
+" colorscheme catppuccin
+" colorscheme moonlight
+" let g:UwuNR=0 " default
+" colorscheme uwu
+" let g:sonokai_style = 'default'
+" let g:sonokai_enable_italic = 1
+" let g:sonokai_disable_italic_comment = 1
+" 
+" colorscheme sonokai
+let g:tokyonight_style = "night"
+colorscheme tokyonight
 
 " Autocommands
 autocmd FileType javascript,javascriptreact,typescript,typescriptreact

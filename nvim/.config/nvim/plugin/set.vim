@@ -18,3 +18,4 @@ set termguicolors
 set list 
 set lcs=tab:\|\ 
 
+set noswapfile
