@@ -1,4 +1,3 @@
-lua << EOF
 global = {}
 
 local lspconfig = require("lspconfig")
@@ -49,8 +48,9 @@ local on_attach = function(client, bufnr)
     buf_map(bufnr, "i", "<C-x><C-x>", "<cmd> LspSignatureHelp<CR>")    
 
     if client.resolved_capabilities.document_formatting then
-        vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
+      vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
     end
+
 end
 
 lspconfig.tsserver.setup({
@@ -74,7 +74,23 @@ null_ls.setup({
         null_ls.builtins.code_actions.eslint_d,
         null_ls.builtins.formatting.prettier,
     },
-    on_attach = on_attach,
+    on_attach = on_attach
 })
 
-EOF
+local configs = require'lspconfig/configs'    
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+-- lspconfig.emmet_ls.setup({
+--     -- on_attach = on_attach,
+--     capabilities = capabilities,
+--     filetypes = { "html", "css", "typescriptreact", "javascriptreact" },
+-- })
+
+lspconfig.gopls.setup{
+    on_attach = on_attach
+}
+
+lspconfig.cssls.setup {
+  capabilities = capabilities,
+}

@@ -1,6 +1,3 @@
-lua <<EOF
--- Completion config with cmp
-
 local cmp = require'cmp'
 local configs = require'lspconfig.configs'
 local cmp_ultisnips_mappings = require("cmp_nvim_ultisnips.mappings")
@@ -30,7 +27,6 @@ cmp.setup({
     { name = 'ultisnips' },
     { name = "path"},
     { name = "nvim_lsp"},
-    { name = "neorg" },
   },
 })
 
@@ -42,4 +38,3 @@ lspconfig.tsserver.setup({
   capabilities = capabilities,
 })
 
-EOF
