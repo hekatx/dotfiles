@@ -1,6 +1,6 @@
 local lspconfig = require("lspconfig")
 local null_ls = require("null-ls")
-local configs = require("lspconfig/configs")
+local cmp_lsp = require("cmp_nvim_lsp")
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
@@ -19,7 +19,7 @@ local on_attach = function(client)
 end
 
 lspconfig.tsserver.setup({
-  on_attach = function(client, bufnr)
+  on_attach = function(client)
     client.resolved_capabilities.document_formatting = false
     client.resolved_capabilities.document_range_formatting = false
 
@@ -28,6 +28,8 @@ lspconfig.tsserver.setup({
     ts_utils.setup_client(client)
     on_attach(client)
   end,
+
+  capabilities = cmp_lsp.update_capabilities(capabilities)
 })
 
 null_ls.setup({
@@ -68,18 +70,14 @@ lspconfig.sumneko_lua.setup {
   settings = {
     Lua = {
       runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
         version = 'LuaJIT',
       },
       diagnostics = {
-        -- Get the language server to recognize the `vim` global
         globals = { 'vim' },
       },
       workspace = {
-        -- Make the server aware of Neovim runtime files
         library = vim.api.nvim_get_runtime_file("", true),
       },
-      -- Do not send telemetry data containing a randomized but unique identifier
       telemetry = {
         enable = false,
       },

@@ -3,13 +3,14 @@ vim.g.mapleader = " "
 local api = vim.api
 
 local function map(mode, lhs, rhs, opts)
-  local options = {noremap = true}
+  local options = { noremap = true }
   if opts then options = vim.tbl_extend('force', options, opts) end
   api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
 map("n", "<leader>f", "<cmd>Telescope find_files<cr>")
 map("n", "<leader>g", "<cmd>Telescope live_grep<cr>")
+map("n", "<leader>u", "<cmd>Telescope buffers<cr>")
 
 map("n", "<leader>da", "<cmd>lua require'dap'.continue()<cr>")
 map("n", "<leader>db", "<cmd>lua require'dap'.toggle_breakpoint()<cr>")
@@ -30,7 +31,3 @@ vim.cmd("nmap ySs      <Plug>YSsurround")
 vim.cmd("nmap ySS      <Plug>YSsurround")
 vim.cmd("xmap gs       <Plug>VSurround")
 vim.cmd("xmap gS       <Plug>VgSurround")
-
-
-
-
