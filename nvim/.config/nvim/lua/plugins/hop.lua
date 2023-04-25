@@ -1,3 +1,3 @@
-require'hop'.setup { keys = 'etovxqpdygfblzhckisuran' }
+local hop = require 'hop'
 
-vim.api.nvim_set_keymap('', '<leader>h', "<cmd>lua require'hop'.hint_words()<cr>", {})
+hop.setup { keys = 'etovxqpdygfblzhckisuran' }

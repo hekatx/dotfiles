@@ -21,17 +21,6 @@ dap_ui.setup({
       close = { "q", "<Esc>" },
     },
   },
-  layouts = {
-    {
-      elements = {
-        "breakpoints",
-        "stacks",
-        "watches",
-      },
-      size = 40, -- 40 columns
-      position = "left",
-    },
-  },
   windows = { indent = 1 },
 })
 
