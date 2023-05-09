@@ -1,0 +1,11 @@
+cd ~/Projects/booard/
+title nvim
+launch sh -c "nvim ."
+
+new_tab server
+cd ~/Projects/booard/
+launch sh -c "yarn dev"
+
+new_tab git
+cd ~/Projects/booard/
+launch sh -c "lazygit"

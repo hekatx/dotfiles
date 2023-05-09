@@ -37,6 +37,7 @@ for _, server in ipairs({
   "clangd",
   "emmet_ls",
   "rust-analyzer",
+  "tailwindcss-language-server",
 }) do
   require("lsp." .. server).setup(on_attach, capabilities)
 
