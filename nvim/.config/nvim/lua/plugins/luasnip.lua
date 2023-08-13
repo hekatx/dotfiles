@@ -1,16 +1,13 @@
 local ls = require("luasnip")
 
 ls.filetype_extend("typescriptreact", { "typescript" })
+
 require("luasnip.loaders.from_lua").load({
     paths = "~/.config/nvim/luasnippets/",
 })
 
-ls.config.set_config({
-    history = true,
-})
-
-ls.add_snippets("all", {
-    ls.s("fuc", ls.t("SHIT FUCK")),
+ls.config.setup({
+  enable_autosnippets = true
 })
 
 -- <c-k> is my expansion key
@@ -31,7 +28,7 @@ end, { silent = true })
 
 -- <c-l> is selecting within a list of options.
 -- This is useful for choice nodes (introduced in the forthcoming episode 2)
-vim.keymap.set("i", "<c-l>", function()
+vim.keymap.set({"i" , "s" }, "<c-b>", function()
   if ls.choice_active() then
     ls.change_choice(1)
   end

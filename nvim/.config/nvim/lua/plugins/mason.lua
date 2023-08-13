@@ -4,5 +4,11 @@ require("mason-lspconfig").setup({
     "tsserver",
     "lua_ls",
     "gopls",
+    "eslint_d",
+    "lua_ls",
+    "prettierd",
+    "rome",
+    "stylua",
+    "tailwindcss",
   }
 })

@@ -6,6 +6,8 @@ local i = ls.insert_node
 local fmt = require("luasnip.extras.fmt").fmt
 local c = ls.choice_node
 local f = ls.function_node
+local extras = require("luasnip.extras")
+local r = extras.rep
 
 local snippets = {}
 
@@ -15,7 +17,7 @@ local function cs(trigger, nodes)
 end
 
 cs(
-    { trig = "clog", name = "JS Console log" },
+    { trig = "!clog", name = "JS Console log", snippetType = "autosnippet" },
     fmt(
         [[
 console.log({})
@@ -28,8 +30,9 @@ console.log({})
 
 cs(
     {
-        trig = "fc",
-        name = "React Functional commponent",
+        trig = "!arrow",
+        name = "Arrow function",
+        snippetType = "autosnippet"
     },
     fmt(
         [[
@@ -41,13 +44,13 @@ cs(
         {
             i(1, "fn_name"),
             c(2, {
+                t(""),
                 sn(1, { t(": "), i(1, "Interface or type") }),
                 sn(2, { t(": React.FC< "), i(1, "Component props"), t(">") }),
-                t(""),
             }),
             c(3, {
-                i(1, "arg"),
                 t(""),
+                i(1, "arg"),
             }),
             c(4, {
                 i(1, "fn body"),
@@ -60,17 +63,25 @@ cs(
 
 cs(
     {
-        trig = "af",
-        name = "Arrow function",
+        trig = "!fn",
+        name = "Regular function",
+        snippetType = "autosnippet"
     },
     fmt(
         [[
-const {} = ({}) => {}
+function {}({}) {{
+  {}
+  return {}
+}}
 ]],
         {
             i(1, "fn_name"),
             i(2, "args"),
-            i(3, "return_value"),
+            i(3, "fn_body"),
+            c(4, {
+              t(""),
+              i(1, "value")
+            }),
         }
     )
 )
@@ -98,12 +109,13 @@ const handle{} = ({}) => {{
 
 cs(
     {
-        trig = "int",
+        trig = "!int",
         name = "Typescript interface declaration",
+        snippetType = "autosnippet"
     },
     fmt(
         [[
-  interface I{} {{
+  interface {} {{
     {}: {};
   }}
   ]],
@@ -135,7 +147,7 @@ cs(
     )
 )
 cs(
-    { trig = "us", name = "Create React state using useState hook" },
+    { trig = "!us", name = "Create React state using useState hook", snippetType = "autosnippet" },
     fmt("const [{}, {}] = useState({});", {
         i(1, "state"),
         f(function(args)
@@ -149,7 +161,7 @@ cs(
 )
 
 cs(
-    { trig = "ur", name = "Create React ref" },
+    { trig = "!ur", name = "Create React ref", snippetType = "autosnippet" },
     fmt("const {} = useRef{}({})", {
         i(1, "ref_name"),
         c(2, {
@@ -157,6 +169,94 @@ cs(
             t(""),
         }),
         i(3, "null"),
+    })
+)
+
+cs(
+  { trig = "!exc", name = "Export constant", snippetType = "autosnippet" },
+  fmt("export const {} = {};", {
+    i(1, "name"),
+    i(2, "value"),
+  })
+)
+
+cs(
+  { trig = "!rctx", name = "React context template", snippetType = "autosnippet" },
+  fmt(
+    [[
+import {{ createContext, FunctionComponent, useMemo, useContext }} from "react";
+
+export interface {}Props {{
+    {}
+}}
+
+export const {} = createContext<{}Props | undefined>(undefined);
+
+export const {}Provider: FunctionComponent<{{
+    {}
+}}> = ({{
+    {}, children
+}}) => {{
+    {}
+
+    const contextValue = useMemo({});
+
+    return <{}.Provider
+        value={{contextValue}}
+        children={{children}}
+    />;
+}}
+
+export const use{} = (): {}Props => {{
+    const contextValue = useContext({});
+    if (!contextValue) {{
+        throw new Error("Tried to use {} from outside the provider");
+    }}
+    return contextValue;
+}}
+    ]], 
+    {
+      i(1, "Context name"),
+      i(2, "props"),
+      r(1),
+      r(1),
+      r(1),
+      i(3, "initial props"),
+      i(4, "initial values"),
+      i(5, "context body"),
+      i(6, "memoized context value"),
+      r(1),
+      r(1),
+      r(1),
+      r(1),
+      r(1)
+
+    }
+  )
+)
+
+cs({ trig = "!if", name = "js if", snippetType = "autosnippet" },
+  fmt([[
+    if({}) {{
+      {}
+    }}
+  ]], {
+      i(1, "condition"),
+      i(2, "effect")
+    })
+)
+
+cs({ trig = "!tpq", name = "tRPC private procedure query", snippetType = "autosnippet" },
+  fmt([[
+  {}: privateProcedure.query(({{ ctx }}) => {{
+    {}
+
+    return {};
+  }}),
+  ]], {
+      i(1, "name"),
+      i(2, "body"),
+      i(2, "result")
     })
 )
 

@@ -21,7 +21,31 @@ dap_ui.setup({
       close = { "q", "<Esc>" },
     },
   },
-  windows = { indent = 1 },
+  windows = { indent = 2 },
+  layouts = { {
+      elements = { {
+          id = "scopes",
+          size = 0.25
+        }, {
+          id = "breakpoints",
+          size = 0.25
+        }, {
+          id = "stacks",
+          size = 0.25
+        }, {
+          id = "watches",
+          size = 0.25
+        } },
+      position = "left",
+      size = 70
+    }, {
+      elements = { {
+          id = "repl",
+          size = 1.0
+        } },
+      position = "bottom",
+      size = 20
+    } },
 })
 
 dap.listeners.after.event_initialized["dapui_config"] = function()

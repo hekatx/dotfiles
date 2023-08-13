@@ -109,6 +109,11 @@ _G.packer_plugins = {
     path = "/home/queb/.local/share/nvim/site/pack/packer/start/cmp_luasnip",
     url = "https://github.com/saadparwaiz1/cmp_luasnip"
   },
+  coq_nvim = {
+    loaded = true,
+    path = "/home/queb/.local/share/nvim/site/pack/packer/start/coq_nvim",
+    url = "https://github.com/ms-jpq/coq_nvim"
+  },
   ["emmet-vim"] = {
     loaded = true,
     path = "/home/queb/.local/share/nvim/site/pack/packer/start/emmet-vim",
@@ -133,11 +138,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/queb/.local/share/nvim/site/pack/packer/start/impatient.nvim",
     url = "https://github.com/lewis6991/impatient.nvim"
-  },
-  ["lsp_signature.nvim"] = {
-    loaded = true,
-    path = "/home/queb/.local/share/nvim/site/pack/packer/start/lsp_signature.nvim",
-    url = "https://github.com/ray-x/lsp_signature.nvim"
   },
   ["mason-lspconfig.nvim"] = {
     loaded = true,
@@ -168,6 +168,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/queb/.local/share/nvim/site/pack/packer/start/neotest-jest",
     url = "https://github.com/haydenmeade/neotest-jest"
+  },
+  ["neotest-vitest"] = {
+    loaded = true,
+    path = "/home/queb/.local/share/nvim/site/pack/packer/start/neotest-vitest",
+    url = "https://github.com/marilari88/neotest-vitest"
   },
   ["null-ls.nvim"] = {
     loaded = true,
@@ -204,10 +209,21 @@ _G.packer_plugins = {
     path = "/home/queb/.local/share/nvim/site/pack/packer/start/nvim-dap-virtual-text",
     url = "https://github.com/theHamsta/nvim-dap-virtual-text"
   },
+  ["nvim-dap-vscode-js"] = {
+    loaded = true,
+    path = "/home/queb/.local/share/nvim/site/pack/packer/start/nvim-dap-vscode-js",
+    url = "https://github.com/mxsdev/nvim-dap-vscode-js"
+  },
   ["nvim-lspconfig"] = {
     loaded = true,
     path = "/home/queb/.local/share/nvim/site/pack/packer/start/nvim-lspconfig",
     url = "https://github.com/neovim/nvim-lspconfig"
+  },
+  ["nvim-surround"] = {
+    config = { "\27LJ\2\n?\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\18nvim-surround\frequire\0" },
+    loaded = true,
+    path = "/home/queb/.local/share/nvim/site/pack/packer/start/nvim-surround",
+    url = "https://github.com/kylechui/nvim-surround"
   },
   ["nvim-treesitter"] = {
     loaded = true,
@@ -239,6 +255,12 @@ _G.packer_plugins = {
     path = "/home/queb/.local/share/nvim/site/pack/packer/start/poimandres.nvim",
     url = "https://github.com/olivercederborg/poimandres.nvim"
   },
+  ["qmk.nvim"] = {
+    config = { "\27LJ\2\n×\1\0\0\4\0\6\0\n5\0\0\0005\1\1\0=\1\2\0006\1\3\0'\3\4\0B\1\2\0029\1\5\1\18\3\0\0B\1\2\1K\0\1\0\nsetup\bqmk\frequire\vlayout\1\5\0\0 _ x x x x x x _ x x x x x x _ x x x x x x _ x x x x x x _ x x x x x x _ x x x x x x _ _ _ _ x x x _ x x x _ _ _\1\0\1\tname\23LAYOUT_split_3x6_3\0" },
+    loaded = true,
+    path = "/home/queb/.local/share/nvim/site/pack/packer/start/qmk.nvim",
+    url = "https://github.com/codethread/qmk.nvim"
+  },
   ["rust-tools.nvim"] = {
     loaded = true,
     path = "/home/queb/.local/share/nvim/site/pack/packer/start/rust-tools.nvim",
@@ -259,6 +281,12 @@ _G.packer_plugins = {
     path = "/home/queb/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
   },
+  ["transparent.nvim"] = {
+    config = { "\27LJ\2\n=\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\16transparent\frequire\0" },
+    loaded = true,
+    path = "/home/queb/.local/share/nvim/site/pack/packer/start/transparent.nvim",
+    url = "https://github.com/xiyaowong/transparent.nvim"
+  },
   ["typescript.nvim"] = {
     loaded = true,
     path = "/home/queb/.local/share/nvim/site/pack/packer/start/typescript.nvim",
@@ -268,15 +296,22 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/queb/.local/share/nvim/site/pack/packer/start/vim-abolish",
     url = "https://github.com/tpope/vim-abolish"
-  },
-  ["vim-surround"] = {
-    loaded = true,
-    path = "/home/queb/.local/share/nvim/site/pack/packer/start/vim-surround",
-    url = "https://github.com/tpope/vim-surround"
   }
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: nvim-surround
+time([[Config for nvim-surround]], true)
+try_loadstring("\27LJ\2\n?\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\18nvim-surround\frequire\0", "config", "nvim-surround")
+time([[Config for nvim-surround]], false)
+-- Config for: qmk.nvim
+time([[Config for qmk.nvim]], true)
+try_loadstring("\27LJ\2\n×\1\0\0\4\0\6\0\n5\0\0\0005\1\1\0=\1\2\0006\1\3\0'\3\4\0B\1\2\0029\1\5\1\18\3\0\0B\1\2\1K\0\1\0\nsetup\bqmk\frequire\vlayout\1\5\0\0 _ x x x x x x _ x x x x x x _ x x x x x x _ x x x x x x _ x x x x x x _ x x x x x x _ _ _ _ x x x _ x x x _ _ _\1\0\1\tname\23LAYOUT_split_3x6_3\0", "config", "qmk.nvim")
+time([[Config for qmk.nvim]], false)
+-- Config for: transparent.nvim
+time([[Config for transparent.nvim]], true)
+try_loadstring("\27LJ\2\n=\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\16transparent\frequire\0", "config", "transparent.nvim")
+time([[Config for transparent.nvim]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then
