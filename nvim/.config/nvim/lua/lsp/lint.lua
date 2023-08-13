@@ -13,9 +13,9 @@ lint.linters_by_ft = {
 formatter.setup({
   logging = true,
   filetype = {
-		javascript = { fts.javascript.eslint_d },
-		javascriptreact = { fts.javascriptreact.eslint_d },
-		typescript = { fts.typescript.eslint_d },
+		javascript = { fts.typescriptreact.eslint_d, fts.typescriptreact.prettierd },
+		javascriptreact = { fts.typescriptreact.eslint_d, fts.typescriptreact.prettierd },
+		typescript = { fts.typescriptreact.eslint_d, fts.typescriptreact.prettierd },
 		typescriptreact = { fts.typescriptreact.eslint_d, fts.typescriptreact.prettierd },
 		json = { require("formatter.filetypes.json").prettier },
   }
