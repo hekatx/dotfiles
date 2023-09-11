@@ -4,29 +4,27 @@
     Last modified: 17/02/2023
     By: éka
 --]]
--- load packer and all plugins installed
-require("packer_init")
 
--- load core configs
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+	vim.fn.system({
+		"git",
+		"clone",
+		"--filter=blob:none",
+		"https://github.com/folke/lazy.nvim.git",
+		"--branch=stable", -- latest stable release
+		lazypath,
+	})
+end
+vim.opt.rtp:prepend(lazypath)
+
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
+local s = require("lazy").setup("plugins")
+
 require("core/settings")
 require("core/maps")
 require("core/colors")
 
--- load plugins config files
-require("plugins/mason")
-require("plugins/cmp")
-require("plugins/nvim-treesitter")
-require("plugins/telescope")
-require("plugins/dap/dap")
-require("plugins/hop")
-require("plugins/luasnip")
-
--- load lsp config
-require("lsp")
-
-vim.api.nvim_set_hl(0, "TelescopeSelection", { bg = "#506477" })
-vim.api.nvim_set_hl(0, "TelescopeSelectionCaret", { bg = "#506477" })
-vim.api.nvim_set_hl(0, "DiagnosticHint", { fg = "#FFFAC2" })
-vim.api.nvim_set_hl(0, "DiagnosticVirtualTextHint", { fg = "#FFFAC2" })
-vim.api.nvim_set_hl(0, "DiagnosticFloatingHint", { fg = "#FFFAC2" })
-vim.api.nvim_set_hl(0, "DiagnosticDefaultHint", { fg = "#FFFAC2" })
+return s

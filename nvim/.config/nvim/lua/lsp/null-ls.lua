@@ -10,6 +10,7 @@ M.setup = function(on_attach)
           b.formatting.prettierd,
           b.formatting.eslint_d,
           b.diagnostics.eslint_d,
+          b.formatting.stylua,
       },
       on_attach = on_attach,
       debug = true,

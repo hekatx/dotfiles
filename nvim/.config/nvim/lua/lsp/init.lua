@@ -3,7 +3,7 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local u = require("core/utils")
 
 -- Set up lspconfig.
-local capabilities = require("cmp_nvim_lsp").default_capabilities()
+-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local on_attach = function(client, bufnr)
   u.map("n", "K", vim.lsp.buf.hover, { buffer = 0 })
@@ -39,9 +39,5 @@ for _, server in ipairs({
   "rust-analyzer",
   "tailwindcss-language-server",
 }) do
-  require("lsp." .. server).setup(on_attach, capabilities)
-
-  require("lsp_signature").setup({
-    hint_enable = false,
-  })
+  require("lsp." .. server).setup(on_attach)
 end
