@@ -7,7 +7,7 @@ u.map("n", "<leader>f", "<cmd>Telescope find_files<cr>", { desc = "[Telescope] -
 u.map("n", "<leader>g", "<cmd>Telescope live_grep<cr>", { desc = "[Telescope] - Grep in cwd" })
 u.map("n", "<leader>u", "<cmd>Telescope buffers<cr>", { desc = "[Telescope] - List all open buffers" })
 u.map("n", "<leader>b", "<cmd>Telescope file_browser<cr>", { noremap = true, desc = "[Telescope] - File browser" })
-u.map("n", "<leader>m", "<cmd>Telescope keymaps<cr>", { desc = "[Telescope] - List all keymaps" })
+u.map("n", "<leader>tm", "<cmd>Telescope keymaps<cr>", { desc = "[Telescope] - List all keymaps" })
 
 -- DAP
 u.map("n", "<f12>", "<cmd>lua require('dap').toggle_breakpoint()<cr>", { desc = "[DAP] - Toggle breakpoint" })

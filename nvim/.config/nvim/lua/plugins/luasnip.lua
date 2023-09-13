@@ -14,6 +14,7 @@ M.config = function()
 
 	ls.config.set_config({
 		history = true,
+		store_selection_keys = "<Tab>",
 	})
 
 	ls.add_snippets("all", {

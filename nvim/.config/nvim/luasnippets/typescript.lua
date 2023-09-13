@@ -70,7 +70,10 @@ const {} = ({}) => {}
 		{
 			i(1, "fn_name"),
 			i(2, "args"),
-			i(3, "return_value"),
+			c(3, {
+				i(1, "return value"),
+				sn(2, { t("{"), i(1, "fn"), t("}") }),
+			}),
 		}
 	)
 )
@@ -183,5 +186,132 @@ cs(
 )
 
 cs({ trig = '"', name = "quote" }, fmt([["{}"]], { i(1, "") }))
+
+cs(
+	{ trig = "context", name = "React context template with custom hook" },
+	fmt(
+		[[
+export interface {name}ContextProps {{
+    {name}Value: any;
+}}
+
+export const {name}Context = React.createContext<{name}ContextProps | undefined>(undefined);
+
+export const {name}ContextProvider: React.FunctionComponent<{{
+    initial{name}Value: any
+}}> = ({{
+    initial{name}Value, children
+}}) => {{
+    const [{name}Value, set{name}Value,] = React.useState(initial{name}Value);
+
+    const contextValue = React.useMemo(() => ({{
+        {name}Value,
+    }}), [
+        {name}Value,
+    ]);
+    return <{name}Context.Provider
+        value={{contextValue}}
+        children={{children}}
+    />;
+}}
+
+export const use{name}Context = (): {name}ContextProps => {{
+    const contextValue = React.useContext({name}Context);
+    if (!contextValue) {{
+        throw new Error("Tried to use {name} context from outside the provider");
+    }}
+    return contextValue;
+}};
+  ]],
+		{
+			name = i(1, "name"),
+		},
+		{
+			repeat_duplicates = true,
+		}
+	)
+)
+
+cs(
+	{
+		trig = "ueff",
+		name = "useEffect react hook",
+	},
+	fmt(
+		[[
+useEffect(() => {{
+{}
+}}, [{}])
+]],
+		{
+			i(1, "fn"),
+			i(2, "dependencies"),
+		}
+	)
+)
+
+cs(
+	{ trig = "hlen", name = "declare variable for checking length" },
+	fmt(
+		[[
+const has{} = ({}?.length ?? 0) > 0;
+  ]],
+		{
+			i(1, "Items"),
+			i(2, "items"),
+		}
+	)
+)
+
+cs(
+	{ trig = "eret", name = "early return" },
+	fmt(
+		[[
+if ({}) return{}
+]],
+		{
+			i(1, "condition"),
+			c(2, {
+				t(";"),
+				sn(1, { t(" "), i(1, "value") }),
+			}),
+		}
+	)
+)
+
+cs({ trig = "cln", name = "className attribute" }, fmt([[className="{}"]], { i(1, "class") }))
+
+cs(
+	{ trig = "stwm", name = "string class attribute to twMerge" },
+	f(function(args, snip)
+		local res, env = {}, snip.env
+		table.insert(res, "{twMerge(")
+		for _, ele in ipairs(env.LS_SELECT_RAW) do
+			table.insert(res, ele)
+		end
+		table.insert(res, ")}")
+		return res
+	end)
+)
+
+cs(
+	{ trig = "mtd", name = "method" },
+	fmt(
+		[[
+{}: ({}) => {{
+{}
+}}
+]],
+		{
+			i(1, "methodName"),
+			c(2, {
+				t(""),
+				i(2, "args"),
+				sn(3, { t("{"), i(1, "destructured"), t("}") }),
+			}),
+			i(3, "method body"),
+		}
+	)
+)
 
 return snippets

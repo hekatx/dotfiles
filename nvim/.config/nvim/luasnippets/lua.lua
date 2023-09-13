@@ -49,4 +49,17 @@ end
 	)
 )
 
+cs(
+	{ trig = "snip", name = "snippet" },
+	fmt(
+		[[
+cs({{ trig = '{}', name = "{}" }}, fmt({}) )]],
+		{
+			i(1, "trigger"),
+			i(2, "name"),
+			i(3, "content"),
+		}
+	)
+)
+
 return snippets

@@ -9,7 +9,7 @@ return {
 	"tpope/vim-surround",
 	"windwp/nvim-ts-autotag",
 	"tpope/vim-abolish",
-
+	"tpope/vim-fugitive",
 	-- Misc
 	"lewis6991/impatient.nvim",
 	"kevinhwang91/nvim-bqf",
