@@ -27,4 +27,10 @@ require("core/settings")
 require("core/maps")
 require("core/colors")
 
+vim.api.nvim_create_autocmd({ "VimLeave" }, {
+	callback = function()
+		vim.cmd("sleep 50m")
+	end,
+})
+
 return s

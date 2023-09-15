@@ -13,7 +13,7 @@ return {
 		local u = require("core/utils")
 
 		-- Set up lspconfig.
-		-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
+		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 		local on_attach = function(client, bufnr)
 			u.map("n", "K", vim.lsp.buf.hover, { buffer = 0 })
@@ -49,7 +49,7 @@ return {
 			"rust-analyzer",
 			"tailwindcss-language-server",
 		}) do
-			require("lsp." .. server).setup(on_attach)
+			require("lsp." .. server).setup(on_attach, capabilities)
 		end
 	end,
 }

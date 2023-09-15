@@ -13,7 +13,16 @@ return {
 	-- Misc
 	"lewis6991/impatient.nvim",
 	"kevinhwang91/nvim-bqf",
-	"rebelot/kanagawa.nvim",
+	{
+		"rebelot/kanagawa.nvim",
+		opts = {
+			compile = true,
+			background = { -- map the value of 'background' option to a theme
+				dark = "dragon", -- try "dragon" !
+				light = "dragon",
+			},
+		},
+	},
 	{
 		"ms-jpq/coq.thirdparty",
 		branch = "3p",

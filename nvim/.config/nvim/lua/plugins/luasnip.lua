@@ -8,6 +8,9 @@ M.config = function()
 	local ls = require("luasnip")
 
 	ls.filetype_extend("typescriptreact", { "typescript" })
+	ls.filetype_extend("javascriptreact", { "typescript" })
+	ls.filetype_extend("javascript", { "typescript" })
+
 	require("luasnip.loaders.from_lua").load({
 		paths = "~/.config/nvim/luasnippets/",
 	})
@@ -15,10 +18,6 @@ M.config = function()
 	ls.config.set_config({
 		history = true,
 		store_selection_keys = "<Tab>",
-	})
-
-	ls.add_snippets("all", {
-		ls.s("fuc", ls.t("SHIT FUCK")),
 	})
 
 	-- <c-k> is my expansion key
