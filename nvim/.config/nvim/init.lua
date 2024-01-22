@@ -5,6 +5,8 @@
     By: éka
 --]]
 
+require("core/settings")
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
 	vim.fn.system({
@@ -23,7 +25,6 @@ vim.g.maplocalleader = " "
 
 local s = require("lazy").setup("plugins")
 
-require("core/settings")
 require("core/maps")
 require("core/colors")
 

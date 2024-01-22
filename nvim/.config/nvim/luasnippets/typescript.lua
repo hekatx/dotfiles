@@ -314,4 +314,33 @@ cs(
 	)
 )
 
+cs(
+	{
+		trig = "fn",
+		name = "Function",
+	},
+	fmt(
+		[[
+function {}({}) {{
+  {}
+}}
+]],
+		{
+			i(1, "fn_name"),
+			i(2, "args"),
+			i(3, "body"),
+		}
+	)
+)
+
+cs(
+	{
+		trig = "cln",
+		name = "className",
+	},
+	fmt([[className="{}"]], {
+		i(1, "class"),
+	})
+)
+
 return snippets

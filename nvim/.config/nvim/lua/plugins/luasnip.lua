@@ -8,6 +8,7 @@ M.config = function()
 	local ls = require("luasnip")
 
 	ls.filetype_extend("typescriptreact", { "typescript" })
+	ls.filetype_extend("astro", { "typescript" })
 	require("luasnip.loaders.from_lua").load({
 		paths = "~/.config/nvim/luasnippets/",
 	})
@@ -46,6 +47,11 @@ M.config = function()
 	end)
 
 	vim.keymap.set("i", "<c-u>", require("luasnip.extras.select_choice"))
+	vim.api.nvim_create_user_command(
+		"LuaSnipEdit",
+		'lua require("luasnip.loaders").edit_snippet_files()',
+		{ bang = true }
+	)
 end
 
 return M

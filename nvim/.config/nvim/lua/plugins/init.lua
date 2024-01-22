@@ -13,7 +13,11 @@ return {
 	-- Misc
 	"lewis6991/impatient.nvim",
 	"kevinhwang91/nvim-bqf",
-	"rebelot/kanagawa.nvim",
+  {
+    "rebelot/kanagawa.nvim",
+    config = function ()
+    end
+  },
 	{
 		"ms-jpq/coq.thirdparty",
 		branch = "3p",

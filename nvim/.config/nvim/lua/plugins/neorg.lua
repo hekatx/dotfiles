@@ -9,13 +9,19 @@ return {
 				["core.concealer"] = {},
 				["core.summary"] = {},
 				["core.neorgcmd.commands.return"] = {},
-				["core.ui.calendar"] = {},
 				["core.dirman"] = {
 					config = {
 						workspaces = {
 							personal = "~/notes/personal",
 						},
 						default_workspace = "personal",
+					},
+				},
+				["core.keybinds"] = {
+					config = {
+						hook = function(keybinds)
+							keybinds.map("norg", "n", "<Leader>oj", "<cmd>Neorg journal<CR>")
+						end,
 					},
 				},
 			},

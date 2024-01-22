@@ -29,10 +29,16 @@ return {
 				"go",
 				"lua",
 				"rust",
+				"markdown",
 			},
 			sync_install = true,
 			ignore_install = {},
 			modules = {},
+		})
+		vim.filetype.add({
+			extension = {
+				mdx = "mdx",
+			},
 		})
 	end,
 }

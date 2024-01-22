@@ -34,3 +34,5 @@ u.map("v", "<leader>p", '"_dP', { desc = "[Misc] - Paste in place without losing
 u.map("n", "<leader>cb", "<cmd>! cmake -S . -B ./build && make -C ./build && ./build/learn_opengl<cr>", {})
 
 u.map("n", "<leader>+", "<cmd>source $MYVIMRC<CR>", { desc = "Reload nvim config" })
+
+u.map("n", "<leader>oj", "<cmd>Neorg journal<CR>")
