@@ -1,13 +1,13 @@
 local M = {
 	"L3MON4D3/LuaSnip",
-	version = "v2.*",
-	build = "make install_jsregexp",
 }
 
 M.config = function()
 	local ls = require("luasnip")
 
 	ls.filetype_extend("typescriptreact", { "typescript" })
+	ls.filetype_extend("javascriptreact", { "typescript" })
+	ls.filetype_extend("javascript", { "typescript" })
 	ls.filetype_extend("astro", { "typescript" })
 	require("luasnip.loaders.from_lua").load({
 		paths = "~/.config/nvim/luasnippets/",

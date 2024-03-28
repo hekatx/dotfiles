@@ -38,6 +38,8 @@ return {
 			end
 		end
 
+		require("lspconfig").rescriptls.setup({})
+
 		for _, server in ipairs({
 			"tsserver",
 			"null-ls",
@@ -48,6 +50,7 @@ return {
 			"emmet_ls",
 			"rust-analyzer",
 			"tailwindcss-language-server",
+			"ocamllsp",
 		}) do
 			require("lsp." .. server).setup(on_attach)
 		end

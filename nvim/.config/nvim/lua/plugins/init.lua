@@ -7,19 +7,43 @@ return {
 
 	-- Motions and useful commands
 	"tpope/vim-surround",
-	"windwp/nvim-ts-autotag",
+	{
+		"windwp/nvim-ts-autotag",
+		opts = {
+			filetypes = { "reason" },
+		},
+	},
 	"tpope/vim-abolish",
-	"tpope/vim-fugitive",
 	-- Misc
 	"lewis6991/impatient.nvim",
 	"kevinhwang91/nvim-bqf",
-  {
-    "rebelot/kanagawa.nvim",
-    config = function ()
-    end
-  },
+	{
+		"rebelot/kanagawa.nvim",
+		config = true,
+	},
 	{
 		"ms-jpq/coq.thirdparty",
 		branch = "3p",
+	},
+	"danielo515/nvim-treesitter-reason",
+	{ "rescript-lang/vim-rescript", ft = "rescript" },
+	{
+		"tools-life/taskwiki",
+		dependencies = {
+			"farseer90718/vim-taskwarrior",
+			"majutsushi/tagbar",
+			"powerman/vim-plugin-AnsiEsc",
+			"vimwiki/vimwiki",
+		},
+	},
+	"nvim-treesitter/playground",
+	{
+		"NeogitOrg/neogit",
+		config = true,
+		dependencies = {
+			"nvim-lua/plenary.nvim", -- required
+			"sindrets/diffview.nvim", -- optional - Diff integration
+			"nvim-telescope/telescope.nvim", -- optional
+		},
 	},
 }

@@ -3,6 +3,7 @@ local b = null_ls.builtins
 
 local biome = b.formatting.rome.with({
 	command = "biome",
+	extra_filetypes = { "astro" },
 })
 
 local M = {}
@@ -18,6 +19,7 @@ M.setup = function(on_attach)
 
 			-- lua
 			b.formatting.stylua,
+			b.formatting.ocamlformat,
 		},
 		on_attach = on_attach,
 	})

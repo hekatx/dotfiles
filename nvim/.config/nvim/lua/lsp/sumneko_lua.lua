@@ -10,6 +10,9 @@ M.setup = function(on_attach)
 		end,
 		settings = {
 			Lua = {
+				format = {
+					enable = false,
+				},
 				runtime = {
 					version = "LuaJIT",
 				},
@@ -17,8 +20,8 @@ M.setup = function(on_attach)
 					globals = { "vim" },
 				},
 				workspace = {
-					library = vim.api.nvim_get_runtime_file("", true),
-					checkThirdParty = false,
+					library = { vim.api.nvim_get_runtime_file("", true) },
+					checkThirdParty = true,
 				},
 				telemetry = {
 					enable = false,
