@@ -13,7 +13,7 @@ return {
 		local u = require("core/utils")
 
 		-- Set up lspconfig.
-		-- local capabilities = require("cmp_nvim_lsp").default_capabilities()
+		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 		local on_attach = function(client, bufnr)
 			u.map("n", "K", vim.lsp.buf.hover, { buffer = 0 })
@@ -38,7 +38,17 @@ return {
 			end
 		end
 
-		require("lspconfig").rescriptls.setup({})
+		local lspconfig = require("lspconfig")
+
+		lspconfig.rescriptls.setup({})
+
+		lspconfig.gleam.setup({
+			cmd = { "gleam", "lsp" },
+			filetypes = { "gleam" },
+			root_dir = lspconfig.util.root_pattern("gleam.toml", ".git"),
+			on_attach = on_attach,
+			capabilities = capabilities,
+		})
 
 		for _, server in ipairs({
 			"tsserver",

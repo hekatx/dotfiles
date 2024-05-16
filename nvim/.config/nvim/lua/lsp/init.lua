@@ -28,6 +28,8 @@ local on_attach = function(client, bufnr)
 	end
 end
 
+local lspconfig = require("lspconfig")
+
 for _, server in ipairs({
 	"tsserver",
 	"null-ls",

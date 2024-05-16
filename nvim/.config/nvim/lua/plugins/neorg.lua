@@ -7,6 +7,7 @@ return {
 			load = {
 				["core.defaults"] = {},
 				["core.concealer"] = {},
+				["core.ui.calendar"] = {},
 				["core.summary"] = {},
 				["core.neorgcmd.commands.return"] = {},
 				["core.dirman"] = {

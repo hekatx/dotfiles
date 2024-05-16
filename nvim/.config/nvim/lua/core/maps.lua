@@ -3,10 +3,10 @@ local u = require("core/utils")
 vim.g.mapleader = " "
 
 -- Telescope maps
-u.map("n", "<leader>f", "<cmd>Telescope find_files<cr>", { desc = "[Telescope] - Find files under cwd" })
-u.map("n", "<leader>g", "<cmd>Telescope live_grep<cr>", { desc = "[Telescope] - Grep in cwd" })
-u.map("n", "<leader>u", "<cmd>Telescope buffers<cr>", { desc = "[Telescope] - List all open buffers" })
-u.map("n", "<leader>b", "<cmd>Telescope file_browser<cr>", { noremap = true, desc = "[Telescope] - File browser" })
+u.map("n", "<leader>tf", "<cmd>Telescope find_files<cr>", { desc = "[Telescope] - Find files under cwd" })
+u.map("n", "<leader>tg", "<cmd>Telescope live_grep<cr>", { desc = "[Telescope] - Grep in cwd" })
+u.map("n", "<leader>tu", "<cmd>Telescope buffers<cr>", { desc = "[Telescope] - List all open buffers" })
+u.map("n", "<leader>tb", "<cmd>Telescope file_browser<cr>", { noremap = true, desc = "[Telescope] - File browser" })
 u.map("n", "<leader>tm", "<cmd>Telescope keymaps<cr>", { desc = "[Telescope] - List all keymaps" })
 
 -- DAP

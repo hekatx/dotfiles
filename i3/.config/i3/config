@@ -1,8 +1,7 @@
-# Should you change your keyboard layout some time, delete
-# this file and re-run i3-config-wizard(1).
-
 exec_always --no-startup-id ~/.config/polybar/launch.sh 
 exec_always --no-startup-id ~/.config/i3/feh.sh
+exec --no-startup-id "xset r rate 180 15"
+exec --no-startup-id "setxkbmap -variant altgr-intl"
 
 # Modkey (windows key)
 set $mod Mod4
@@ -167,3 +166,5 @@ assign [class="discord"] 3
 gaps inner 10
 gaps top 45
 
+# Run flameshot
+bindsym $mod+q exec "flameshot gui"

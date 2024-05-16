@@ -27,48 +27,30 @@ local s = require("lazy").setup("plugins")
 
 require("core/maps")
 require("core/colors")
-local parsers = require("nvim-treesitter.parsers")
 
-local journalPath = "/home/quebin_gonzalez/notes/personal/journal/"
+function doThing()
+	-- Create a new vertical split window on the right
+	vim.cmd("rightbelow vnew")
 
-local insertUndoneTodosInCurrentBuffer = function()
-	local queryString = [[ (_
-  state: (detached_modifier_extension [
-    (todo_item_undone)
-    (todo_item_pending)
-  ]) 
-  content: (paragraph) 
-) @something
-  ]]
+	-- Get the current buffer number
+	local buf = vim.api.nvim_get_current_buf()
 
-	local todosInProgress = { "* Past TODOs" }
+	-- Set the buffer name (optional)
+	vim.api.nvim_buf_set_name(buf, "TaskOutput")
 
-	local paths = vim.split(vim.fn.glob(journalPath .. "**/*.norg"), "\n")
-	local todaysName = vim.api.nvim_buf_get_name(0)
+	-- Set the buffer type to "nofile" (optional)
+	vim.api.nvim_buf_set_option(buf, "buftype", "nofile")
 
-	for _, path in pairs(paths) do
-		if path ~= todaysName then
-			local bufnr = vim.api.nvim_create_buf(true, false)
-			vim.api.nvim_buf_set_name(bufnr, path)
-			vim.api.nvim_buf_call(bufnr, vim.cmd.edit)
-			local parser = parsers.get_parser(bufnr)
-			local tree = parser:parse()[1]
-			local root = tree:root()
-			local lang = parser:lang()
-			local query = vim.treesitter.query.parse(lang, queryString)
+	-- Execute the `task` command and capture its output
+	local output = vim.fn.systemlist("task")
 
-			for _, matches, _ in query:iter_matches(root, 0) do
-				table.insert(todosInProgress, vim.treesitter.get_node_text(matches[1], bufnr))
-			end
-			vim.api.nvim_buf_delete(bufnr, {})
-		end
-	end
+	-- Set the contents of the buffer to the captured output
+	vim.api.nvim_buf_set_lines(buf, 0, -1, false, output)
 
-	local todaysBuffer = 0
-
-	vim.api.nvim_buf_set_lines(todaysBuffer, 0, 0, false, todosInProgress)
+	-- Set the buffer to be readonly (optional)
+	vim.api.nvim_buf_set_option(buf, "readonly", true)
 end
 
-vim.api.nvim_create_user_command("InsertTodos", insertUndoneTodosInCurrentBuffer, {})
+vim.api.nvim_create_user_command("Task", doThing, {})
 
 return s

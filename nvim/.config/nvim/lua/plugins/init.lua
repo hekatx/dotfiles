@@ -46,4 +46,20 @@ return {
 			"nvim-telescope/telescope.nvim", -- optional
 		},
 	},
+	{ "folke/neodev.nvim", opts = {} },
+	{
+		dir = "~/Projects/tw", -- Your path
+		name = "tw",
+		config = function()
+			require("tw")
+		end,
+	},
+	"MunifTanjim/nui.nvim",
+	{
+		"samjwill/nvim-unception",
+		init = function()
+			-- Optional settings go here!
+			-- e.g.) vim.g.unception_open_buffer_in_new_tab = true
+		end,
+	},
 }

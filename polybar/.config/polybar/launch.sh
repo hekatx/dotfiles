@@ -7,6 +7,6 @@ killall -q polybar
 while pgrep -x polybar >/dev/null; do sleep 1; done
 
 # Launch polybar
-polybar --config=/home/queb/.config/polybar/config.ini top &
-polybar --config=/home/queb/.config/polybar/config.ini date &
-polybar --config=/home/queb/.config/polybar/config.ini controls &
+polybar --config=~/.config/polybar/config.ini top &
+polybar --config=~/.config/polybar/config.ini date &
+polybar --config=~/.config/polybar/config.ini controls &
