@@ -27,25 +27,16 @@ return {
 	},
 	"danielo515/nvim-treesitter-reason",
 	{ "rescript-lang/vim-rescript", ft = "rescript" },
-	{
-		"tools-life/taskwiki",
-		dependencies = {
-			"farseer90718/vim-taskwarrior",
-			"majutsushi/tagbar",
-			"powerman/vim-plugin-AnsiEsc",
-			"vimwiki/vimwiki",
-		},
-	},
 	"nvim-treesitter/playground",
-	{
-		"NeogitOrg/neogit",
-		config = true,
-		dependencies = {
-			"nvim-lua/plenary.nvim", -- required
-			"sindrets/diffview.nvim", -- optional - Diff integration
-			"nvim-telescope/telescope.nvim", -- optional
-		},
-	},
+	-- {
+	-- 	"NeogitOrg/neogit",
+	-- 	config = true,
+	-- 	dependencies = {
+	-- 		"nvim-lua/plenary.nvim", -- required
+	-- 		"sindrets/diffview.nvim", -- optional - Diff integration
+	-- 		"nvim-telescope/telescope.nvim", -- optional
+	-- 	},
+	-- },
 	{ "folke/neodev.nvim", opts = {} },
 	{
 		dir = "~/Projects/tw", -- Your path
@@ -61,5 +52,24 @@ return {
 			-- Optional settings go here!
 			-- e.g.) vim.g.unception_open_buffer_in_new_tab = true
 		end,
+	},
+	{
+		"stevearc/oil.nvim",
+		opts = {},
+		-- Optional dependencies
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+	},
+
+	{ "rescript-lang/vim-rescript", ft = "rescript" },
+
+	{
+		dir = "~/Projects/neogit", -- Your path
+		name = "neogit",
+		config = true,
+		dependencies = {
+			"nvim-lua/plenary.nvim", -- required
+			"sindrets/diffview.nvim", -- optional - Diff integration
+			"nvim-telescope/telescope.nvim", -- optional
+		},
 	},
 }

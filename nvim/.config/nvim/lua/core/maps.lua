@@ -9,6 +9,12 @@ u.map("n", "<leader>tu", "<cmd>Telescope buffers<cr>", { desc = "[Telescope] - L
 u.map("n", "<leader>tb", "<cmd>Telescope file_browser<cr>", { noremap = true, desc = "[Telescope] - File browser" })
 u.map("n", "<leader>tm", "<cmd>Telescope keymaps<cr>", { desc = "[Telescope] - List all keymaps" })
 
+-- Neogit
+u.map("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "[Neogit] - Open neogit" })
+
+-- Oil
+u.map("n", "<leader>ll", "<cmd>Oil<cr>", { desc = "[Oil] - Open oil" })
+
 -- DAP
 u.map("n", "<f12>", "<cmd>lua require('dap').toggle_breakpoint()<cr>", { desc = "[DAP] - Toggle breakpoint" })
 u.map("n", "<f7>", "<cmd>lua require('dap').step_over()<cr>", { desc = "[DAP] - Step over" })

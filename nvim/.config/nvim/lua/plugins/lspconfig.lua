@@ -42,6 +42,13 @@ return {
 
 		lspconfig.rescriptls.setup({})
 
+		lspconfig.elixirls.setup({
+			cmd = { vim.fn.stdpath("data") .. "/mason/bin/elixir-ls" },
+			root_dir = lspconfig.util.root_pattern(".git"),
+			on_attach = on_attach,
+			capabilities = capabilities,
+		})
+
 		lspconfig.gleam.setup({
 			cmd = { "gleam", "lsp" },
 			filetypes = { "gleam" },
