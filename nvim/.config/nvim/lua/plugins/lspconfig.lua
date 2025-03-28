@@ -38,6 +38,11 @@ return {
 			end
 		end
 
+		require("lspconfig").jqls.setup({
+			on_attach = on_attach,
+			capabilities = capabilities,
+		})
+
 		for _, server in ipairs({
 			"tsserver",
 			"null-ls",
@@ -51,5 +56,11 @@ return {
 		}) do
 			require("lsp." .. server).setup(on_attach, capabilities)
 		end
+
+		require("lspconfig").gleam.setup({
+			on_attach = on_attach,
+		})
+
+		require("lspconfig").astro.setup({})
 	end,
 }

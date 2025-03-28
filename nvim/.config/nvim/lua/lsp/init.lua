@@ -41,3 +41,5 @@ for _, server in ipairs({
 }) do
   require("lsp." .. server).setup(on_attach)
 end
+
+require("lspconfig").omnisharp.setup(on_attach)

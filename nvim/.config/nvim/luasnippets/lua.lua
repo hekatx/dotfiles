@@ -62,4 +62,6 @@ cs({{ trig = '{}', name = "{}" }}, fmt({}) )]],
 	)
 )
 
+cs({ trig = "i", name = "insert node" }, fmt([[i({}, {})]], { i(1), i(2) }))
+
 return snippets

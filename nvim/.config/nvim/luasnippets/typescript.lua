@@ -4,6 +4,7 @@ local sn = ls.snippet_node
 local s = ls.snippet
 local i = ls.insert_node
 local fmt = require("luasnip.extras.fmt").fmt
+local rep = require("luasnip.extras").rep
 local c = ls.choice_node
 local f = ls.function_node
 
@@ -13,6 +14,16 @@ local function cs(trigger, nodes)
 	local snippet = s(trigger, nodes)
 	table.insert(snippets, snippet)
 end
+
+cs(
+	{ trig = "ei", name = "eslint ignore comment" },
+	fmt(
+		[[
+// eslint-disable-next-line
+]],
+		{}
+	)
+)
 
 cs(
 	{ trig = "clog", name = "JS Console log" },
@@ -63,19 +74,13 @@ cs(
 		trig = "af",
 		name = "Arrow function",
 	},
-	fmt(
-		[[
-const {} = ({}) => {}
-]],
-		{
-			i(1, "fn_name"),
-			i(2, "args"),
-			c(3, {
-				i(1, "return value"),
-				sn(2, { t("{"), i(1, "fn"), t("}") }),
-			}),
-		}
-	)
+	fmt([[({}) => {}]], {
+		i(1, "args"),
+		c(2, {
+			i(1, "return value"),
+			sn(2, { t("{"), i(1, "fn"), t("}") }),
+		}),
+	})
 )
 
 cs(
@@ -128,11 +133,7 @@ cs(
   {}
   `;]],
 		{
-			f(function(_args, snip)
-				local name = vim.split(snip.snippet.env.TM_FILENAME, ".", true)
-				local operationType = string.upper(string.sub(name[2], 1, 1)) .. string.sub(name[2], 2, -1)
-				return name[1] .. operationType
-			end),
+			i(1, "name"),
 			i(2, "query"),
 		}
 	)
@@ -281,18 +282,23 @@ if ({}) return{}
 
 cs({ trig = "cln", name = "className attribute" }, fmt([[className="{}"]], { i(1, "class") }))
 
-cs(
-	{ trig = "stwm", name = "string class attribute to twMerge" },
-	f(function(args, snip)
+cs({ trig = "stwm", name = "string class attribute to twMerge" }, {
+	f(function(_, snip)
 		local res, env = {}, snip.env
 		table.insert(res, "{twMerge(")
-		for _, ele in ipairs(env.LS_SELECT_RAW) do
-			table.insert(res, ele)
+		local selection = env.LS_SELECT_RAW
+		for index, ele in ipairs(selection) do
+			if index == #selection then
+				table.insert(res, ele .. ",")
+			else
+				table.insert(res, ele)
+			end
 		end
-		table.insert(res, ")}")
 		return res
-	end)
-)
+	end),
+	i(1, "className"),
+	t(")}"),
+})
 
 cs(
 	{ trig = "mtd", name = "method" },
@@ -328,6 +334,247 @@ cs(
 			i(3, "body"),
 		}
 	)
+)
+
+cs(
+	{ trig = "impas" },
+	fmt(
+		[[
+    import {{ {} as {} }} from '{}'
+    ]],
+		{
+			i(1, "ReactComponent"),
+			i(2, "NewName"),
+			c(3, {
+				i(1, "dir"),
+				sn(2, { t("@/"), i(1, "dir") }),
+			}),
+		}
+	)
+)
+
+cs(
+	{ trig = "rudd" },
+	fmt(
+		[[
+    window.rudderanalytics.track({}, {{
+      {}
+    }});
+    ]],
+		{
+			i(1, "event name"),
+			i(2, "props"),
+		}
+	)
+)
+
+cs(
+	{ trig = "dti" },
+	fmt([[data-testId="{}"]], {
+		i(1, "id"),
+	})
+)
+
+cs(
+	{ trig = "jit" },
+	fmt(
+		[[it("{}", async () => {{
+  {}
+}})]],
+		{
+			i(1, "has to do something good"),
+			i(2, "when you do stuff like this"),
+		}
+	)
+)
+
+cs(
+	{ trig = "jdes" },
+	fmt(
+		[[describe("{}", () => {{
+  {}
+}})]],
+		{
+			i(1, "some main behaviour"),
+			i(2, "when this happens"),
+		}
+	)
+)
+
+cs(
+	{ trig = "utra" },
+	fmt([[const {{ t }} = useTranslation({})]], {
+		c(1, {
+			t(""),
+			i(2, "args"),
+		}),
+	})
+)
+
+cs(
+	{ trig = "tfu" },
+	fmt([[t('{}'{})]], {
+		i(1, "key"),
+		c(2, {
+			t(""),
+			sn(2, { t("{"), i(1, "options"), t("}") }),
+		}),
+	})
+)
+
+cs(
+	{ trig = "switcher" },
+	fmt(
+		[[
+  export function {}Switcher() {{
+    const countryCode = getCurrentCountry() as Countries;
+    switch(countryCode) {{
+      case 'BR':
+      case 'MX':
+      case 'CO':
+      case 'GT':
+      case 'PA':
+      default: {{
+        const exhaustiveCheck: never = countryCode;
+          return null
+      }}
+    }}
+  }}
+  ]],
+		{
+			i(1, "ComponentName"),
+		}
+	)
+)
+
+cs(
+	{ trig = "ccg" },
+	fmt(
+		[[
+const config = {{
+  BR: {{
+    {}
+  }},
+  MX: {{
+    {}
+  }},
+  CO: {{
+    {}
+  }},
+  GT: {{
+    {}
+  }},
+  PA: {{
+    {}
+  }},
+}};
+]],
+		{
+			i(1, "config: null"),
+			rep(1),
+			rep(1),
+			rep(1),
+			rep(1),
+		}
+	)
+)
+
+cs({ trig = "ct", name = "const variable" }, fmt([[const {} = {}]], { i(1), i(2) }))
+
+cs({ trig = "exp", name = "expect" }, fmt([[expect({}).{}({})]], { i(1, "got"), i(2, "qualifier"), i(3, "expected") }))
+
+cs(
+	{ trig = "forof", name = "for .. of .. loop" },
+	fmt(
+		[[for (const {} of {}) {{
+{}
+}}
+]],
+		{ i(1, "variable"), i(2, "iterator"), i(3, "statements") }
+	)
+)
+
+cs({ trig = "i1", name = "internationalization" }, fmt([[i18n.t("{}")]], { i(1) }))
+
+cs(
+	{ trig = "juntostest", name = "juntos+ project test file" },
+	fmt(
+		[[
+import {{ MsalReactTester }} from "msal-react-tester";
+import {{ describe, it, beforeEach, afterEach, expect }} from "vitest";
+import {{ server }} from "@/mocks/msw";
+import {{ setupComponent }} from "@/helpers/testing";
+import {{ cleanup }} from "@testing-library/react";
+import {{ {} }} from "./{}";
+import {{ HttpResponse, http }} from "msw";
+import i18n from "@/core/translations/i18next.config";
+
+let msalTester = new MsalReactTester("Redirect");
+
+beforeEach(async () => {{
+  msalTester = new MsalReactTester("Redirect");
+  msalTester.spyMsal();
+  await msalTester.isLogged();
+}});
+
+afterEach(() => {{
+  msalTester.resetSpyMsal();
+  server.resetHandlers();
+  cleanup();
+}});
+
+const setup{} = async (options?: any) => {{
+  await msalTester.isLogged();
+
+  const component = await setupComponent(<{} />, {{
+    msal: msalTester,
+    ...(options ? options : {{}}),
+  }});
+  await msalTester.waitForRedirect();
+  return component;
+}};
+
+describe("<{} />", async () => {{
+  {}
+}});
+]],
+		{ i(1, "Component"), rep(1), rep(1), rep(1), rep(1), i(2) }
+	)
+)
+
+cs(
+	{ trig = "waitfor", name = "waitfor function" },
+	fmt(
+		[[await waitFor(() => {{
+  {}
+}})]],
+		{ i(1) }
+	)
+)
+
+cs({ trig = "tuc", name = "test user click" }, fmt([[await user.click({})]], { i(1) }))
+cs({ trig = "tuk", name = "test user keyboard" }, fmt([[await user.keyboard({})]], { i(1) }))
+cs(
+	{ trig = "texr", name = "typescript expect error directive" },
+	fmt([[// @ts-expect-error{}]], { c(1, { t(""), sn(1, { i(1, "Reason") }) }) })
+)
+cs(
+	{ trig = "if", name = "just ur regular if" },
+	fmt([[if ({}) {}]], {
+		i(1, "condition"),
+		c(2, {
+			sn(1, { i(1, "consequence") }),
+			sn(
+				2,
+				fmt(
+					[[{{
+  {}
+}}]],
+					{ i(1) }
+				)
+			),
+		}),
+	})
 )
 
 return snippets

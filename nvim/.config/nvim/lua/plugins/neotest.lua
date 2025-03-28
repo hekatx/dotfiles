@@ -5,6 +5,13 @@ return {
 		"nvim-treesitter/nvim-treesitter",
 		"antoinemadec/FixCursorHold.nvim",
 		"nvim-neotest/neotest-go",
+		"marilari88/neotest-vitest",
 	},
-	opts = {},
+	config = function()
+		require("neotest").setup({
+			adapters = {
+				require("neotest-vitest"),
+			},
+		})
+	end,
 }

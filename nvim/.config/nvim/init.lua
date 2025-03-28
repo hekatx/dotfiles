@@ -19,9 +19,16 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 vim.g.mapleader = " "
-vim.g.maplocalleader = " "
+vim.g.maplocalleader = ","
 
-local s = require("lazy").setup("plugins")
+local s = require("lazy").setup("plugins", {
+	rocks = {
+		hererocks = true,
+	},
+	git = {
+		timeout = 10000000,
+	},
+})
 
 require("core/settings")
 require("core/maps")

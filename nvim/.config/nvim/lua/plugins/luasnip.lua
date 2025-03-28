@@ -10,6 +10,7 @@ M.config = function()
 	ls.filetype_extend("typescriptreact", { "typescript" })
 	ls.filetype_extend("javascriptreact", { "typescript" })
 	ls.filetype_extend("javascript", { "typescript" })
+	ls.filetype_extend("jsonc", { "json" })
 
 	require("luasnip.loaders.from_lua").load({
 		paths = "~/.config/nvim/luasnippets/",
@@ -39,6 +40,12 @@ M.config = function()
 	-- <c-l> is selecting within a list of options.
 	-- This is useful for choice nodes (introduced in the forthcoming episode 2)
 	vim.keymap.set("i", "<c-l>", function()
+		if ls.choice_active() then
+			ls.change_choice(1)
+		end
+	end)
+
+	vim.keymap.set("s", "<c-l>", function()
 		if ls.choice_active() then
 			ls.change_choice(1)
 		end

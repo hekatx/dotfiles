@@ -20,3 +20,4 @@ o.smartindent = true
 o.scrolloff = 10
 
 vim.g.python3_host_prog = "/usr/bin/python3"
+vim.o.signcolumn = "yes"

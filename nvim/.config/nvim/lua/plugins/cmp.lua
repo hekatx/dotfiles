@@ -1,9 +1,9 @@
 local M = {
 	"hrsh7th/nvim-cmp",
 	dependencies = {
-		"saadparwaiz1/cmp_luasnip",
 		"hrsh7th/cmp-nvim-lua",
 		"hrsh7th/cmp-path",
+		"saadparwaiz1/cmp_luasnip",
 		"hrsh7th/cmp-nvim-lsp",
 		"rafamadriz/friendly-snippets",
 	},
@@ -18,9 +18,6 @@ M.config = function()
 			end,
 		},
 		mapping = cmp.mapping.preset.insert({
-			["<C-space>"] = cmp.mapping({
-				i = cmp.mapping.complete({ reason = cmp.ContextReason.Auto }),
-			}),
 			["<C-b>"] = cmp.mapping.scroll_docs(-4),
 			["<C-f>"] = cmp.mapping.scroll_docs(4),
 			["<C-Space>"] = cmp.mapping.complete(),
@@ -28,11 +25,29 @@ M.config = function()
 			["<C-l>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
 		}),
 		sources = cmp.config.sources({
-			{ name = "luasnip" },
+			{ name = "lazydev", group_index = 0 },
+			{
+				name = "nvim_lsp",
+				entry_filter = function(entry, ctx)
+					local kind = cmp.lsp.CompletionItemKind[entry:get_kind()]
+
+					if kind == "Text" then
+						return false
+					end
+					return true
+				end,
+			},
 			{ name = "nvim_lua" },
-			{ name = "nvim_lsp" },
+			{ name = "luasnip" },
 			{ name = "path" },
 		}),
+	})
+
+	cmp.setup.filetype({ "sql" }, {
+		sources = {
+			{ name = "vim-dadbod-completion" },
+			{ name = "buffer" },
+		},
 	})
 end
 
