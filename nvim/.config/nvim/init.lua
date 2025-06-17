@@ -1,7 +1,6 @@
 --[[
     Neovim init
 
-    Last modified: 17/02/2023
     By: éka
 --]]
 

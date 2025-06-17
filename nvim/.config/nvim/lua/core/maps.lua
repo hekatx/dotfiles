@@ -1,7 +1,5 @@
 local u = require("core/utils")
 
-vim.g.mapleader = " "
-
 -- Telescope maps
 u.map("n", "<leader>tf", "<cmd>Telescope find_files<cr>", { desc = "[Telescope] - Find files under cwd" })
 u.map("n", "<leader>tg", "<cmd>Telescope live_grep<cr>", { desc = "[Telescope] - Grep in cwd" })
@@ -57,14 +55,4 @@ u.map("n", "<leader>gg", "<cmd>Neogit<CR>", { desc = "[Neogit] - Open main windo
 
 -- Miscellaneous
 u.map("v", "<leader>p", '"_dP', { desc = "[Misc] - Paste in place without losing the yanked stuff" })
-u.map("n", "<leader>cb", "<cmd>! cmake -S . -B ./build && make -C ./build && ./build/learn_opengl<cr>", {})
-
-u.map("n", "<leader>+", "<cmd>source $MYVIMRC<CR>", { desc = "Reload nvim config" })
 u.map("n", "<leader>il", "<cmd>Oil<CR>", { desc = "Run Oil" })
-
-local augroup = vim.api.nvim_create_augroup("strdr4605", { clear = true })
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "typescript,typescriptreact",
-	group = augroup,
-	command = "compiler tsc | setlocal makeprg=npx\\ tsc",
-})

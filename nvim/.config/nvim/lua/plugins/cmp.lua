@@ -1,54 +1,24 @@
 local M = {
-	"hrsh7th/nvim-cmp",
+	"saghen/blink.cmp",
 	dependencies = {
-		"hrsh7th/cmp-nvim-lua",
-		"hrsh7th/cmp-path",
-		"saadparwaiz1/cmp_luasnip",
-		"hrsh7th/cmp-nvim-lsp",
-		"rafamadriz/friendly-snippets",
+		{ "L3MON4D3/LuaSnip", version = "v2.*" },
+	},
+	version = "1.*",
+	---@module 'blink.cmp'
+	---@type blink.cmp.Config
+	opts = {
+		snippets = {
+			preset = "luasnip",
+		},
+		keymap = {
+			["<C-l>"] = { "select_and_accept" },
+		},
+		completion = {
+			trigger = {
+				show_on_keyword = false,
+			},
+		},
 	},
 }
-
-M.config = function()
-	local cmp = require("cmp")
-	cmp.setup({
-		snippet = {
-			expand = function(args)
-				require("luasnip").lsp_expand(args.body)
-			end,
-		},
-		mapping = cmp.mapping.preset.insert({
-			["<C-b>"] = cmp.mapping.scroll_docs(-4),
-			["<C-f>"] = cmp.mapping.scroll_docs(4),
-			["<C-Space>"] = cmp.mapping.complete(),
-			["<C-e>"] = cmp.mapping.abort(),
-			["<C-l>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-		}),
-		sources = cmp.config.sources({
-			{ name = "lazydev", group_index = 0 },
-			{
-				name = "nvim_lsp",
-				entry_filter = function(entry, ctx)
-					local kind = cmp.lsp.CompletionItemKind[entry:get_kind()]
-
-					if kind == "Text" then
-						return false
-					end
-					return true
-				end,
-			},
-			{ name = "nvim_lua" },
-			{ name = "luasnip" },
-			{ name = "path" },
-		}),
-	})
-
-	cmp.setup.filetype({ "sql" }, {
-		sources = {
-			{ name = "vim-dadbod-completion" },
-			{ name = "buffer" },
-		},
-	})
-end
 
 return M

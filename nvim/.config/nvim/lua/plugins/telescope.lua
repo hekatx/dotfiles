@@ -4,12 +4,12 @@ return {
 		"nvim-telescope/telescope-file-browser.nvim",
 		"nvim-tree/nvim-web-devicons",
 		"nvim-lua/plenary.nvim",
-    { 
-        "nvim-telescope/telescope-live-grep-args.nvim" ,
-        -- This will not install any breaking changes.
-        -- For major updates, this must be adjusted manually.
-        version = "^1.0.0",
-    },
+		{
+			"nvim-telescope/telescope-live-grep-args.nvim",
+			-- This will not install any breaking changes.
+			-- For major updates, this must be adjusted manually.
+			version = "^1.0.0",
+		},
 	},
 
 	config = function()
@@ -18,6 +18,8 @@ return {
 		telescope.setup({
 			defaults = {
 				file_ignore_patterns = {
+					"yarn.lock",
+					"package-lock.json",
 					"node_modules",
 					"build",
 					"CMakeFiles",

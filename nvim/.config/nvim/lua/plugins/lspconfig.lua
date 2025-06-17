@@ -13,7 +13,6 @@ return {
 		local u = require("core/utils")
 
 		-- Set up lspconfig.
-		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 		local on_attach = function(client, bufnr)
 			u.map("n", "K", vim.lsp.buf.hover, { buffer = 0 })
@@ -38,23 +37,19 @@ return {
 			end
 		end
 
-		require("lspconfig").jqls.setup({
-			on_attach = on_attach,
-			capabilities = capabilities,
-		})
+		local servers = {
+			tsserver = {},
+			["null-ls"] = {},
+			sumneko_lua = {},
+			gopls = {},
+			cssls = {},
+			["tailwindcss-language-server"] = {},
+			jqls = {},
+		}
 
-		for _, server in ipairs({
-			"tsserver",
-			"null-ls",
-			"sumneko_lua",
-			"gopls",
-			"cssls",
-			"clangd",
-			"emmet_ls",
-			"rust-analyzer",
-			"tailwindcss-language-server",
-		}) do
-			require("lsp." .. server).setup(on_attach, capabilities)
+		for server, config in pairs(servers) do
+			config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+			require("lsp." .. server).setup(on_attach, config.capabilities)
 		end
 
 		require("lspconfig").gleam.setup({
