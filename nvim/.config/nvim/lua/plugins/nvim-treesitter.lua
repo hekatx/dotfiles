@@ -1,4 +1,5 @@
 return {
+	lazy = false,
 	"nvim-treesitter/nvim-treesitter",
 	build = function()
 		require("nvim-treesitter.install").update({ with_sync = true })()
@@ -7,7 +8,8 @@ return {
 		local configs = require("nvim-treesitter.configs")
 
 		configs.setup({
-			auto_install = false,
+      auto_install = true,
+			sync_install = false,
 			autotag = {
 				enable = true,
 			},
@@ -25,13 +27,12 @@ return {
 				"javascript",
 				"json",
 				"yaml",
-				"cpp",
 				"go",
+				"cpp",
 				"lua",
 				"rust",
 				"markdown",
 			},
-			sync_install = true,
 			ignore_install = {},
 			modules = {},
 		})

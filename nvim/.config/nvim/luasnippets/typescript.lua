@@ -164,7 +164,7 @@ cs(
 )
 
 cs(
-	{ trig = "[", name = "[ brackets ]" },
+	{ trig = "br", name = "[ brackets ]" },
 	fmt(
 		[[
     [{}]
@@ -174,7 +174,7 @@ cs(
 )
 
 cs(
-	{ trig = "{", name = "{ brackets }" },
+	{ trig = "bl", name = "{ brackets }" },
 	fmt(
 		[[
     {{
@@ -327,8 +327,15 @@ function {}({}) {{
 ]],
 		{
 			i(1, "fn_name"),
-			i(2, "args"),
-			i(3, "body"),
+			c(2, {
+        i(1, "args"),
+        t("{ children }: { children: ReactNode }"),
+        t("")
+      }),
+			c(3, {
+        i(1, "body"),
+        sn(2, { t("return("), i(1, "v"), t(")") })
+      }),
 		}
 	)
 )
@@ -338,9 +345,78 @@ cs(
 		trig = "cln",
 		name = "className",
 	},
-	fmt([[className="{}"]], {
-		i(1, "class"),
+	fmt([[className={}]], {
+			c(1, {
+				sn(1, { t("\""), i(1, "class"), t("\"") }),
+				sn(2, { t("{"), i(1, "class"), t("}") }),
+				sn(3, { t("{`"), i(1, "class"), t("`}") }),
+			}),
 	})
 )
+
+cs(
+  { trig = "$", snippetType = "autosnippet" },
+  fmt([[${}]], {
+    c(1, {
+      sn(1, { t("{"), i(1, ""), t("}") }),
+      i(2,"")
+    })
+  })
+)
+
+local block = fmt([[{{
+  {}
+}}]], { i(1, "") })
+
+cs(
+  { trig = "type" },
+  fmt([[type {} = {}]],
+    {
+      i(1, "Type"),
+      c(2, { sn(1, block), i(2, "typedef") }),
+    }
+  )
+)
+
+cs({ trig = 'inte', name = "Interface ts" },
+  fmt([[interface {} = {{
+  {}
+}}]],
+    { i(1, "Type"), i(2, "Props") }
+  )
+)
+
+cs({ trig = 'ch', name = "react children" }, fmt([[children: ReactNode]], {}) )
+
+cs({ trig = 'mpc', name = "map component" }, fmt([[{{{}.map({} => {})}}]], {
+  i(1, "collection"),
+  c(2, {
+    i(1, "element" ),
+    sn(2, { t("("), i(1, "element"), t(", index)") }),
+    sn(3, { t("("), i(1, "element"), t(", index, array)") }),
+  }),
+  c(3, {
+    i(1, "ImmediateReturn"),
+    block
+  })
+}))
+
+cs({ trig = 'pr', name = "prop" }, fmt([[{}: {},]], {
+  i(1, "prop"),
+  -- todo: recursive type expand upon | char
+  c(2, {
+    t("string"),
+    t("number"),
+    t("boolean"),
+    i(4, "typedef")
+  }),
+}) )
+
+cs({ trig = 'utra', name = "useTranslation" }, fmt([[const {{ t }} = useTranslation();]], {}) )
+cs({ trig = 'uref', name = "useRef" }, fmt([[const {} = useRef{}({});]], {
+  i(1, "ref"),
+  c(2, { sn(1, { t("<"), i(1, "Type"), t(">") }), t("") }),
+  c(3, { t("null"), i(2, "defaultValue") })
+}) )
 
 return snippets

@@ -18,6 +18,5 @@ o.expandtab = true
 o.smartindent = true
 
 o.scrolloff = 10
-o.background = ""
 
 vim.g.python3_host_prog = "/usr/bin/python3"

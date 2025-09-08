@@ -5,6 +5,7 @@ return {
 		"rcarriga/nvim-dap-ui",
 		"theHamsta/nvim-dap-virtual-text",
 		"mxsdev/nvim-dap-vscode-js",
+		"jbyuki/one-small-step-for-vimkind",
 	},
 
 	config = function()
@@ -128,6 +129,20 @@ return {
 				},
 			}
 		end
+
+		-- Lua/plugin debug
+		dap.configurations.lua = {
+			{
+				type = "nlua",
+				request = "attach",
+				name = "Attach to running Neovim instance",
+			},
+		}
+
+		dap.adapters.nlua = function(callback, config)
+			callback({ type = "server", host = config.host or "127.0.0.1", port = config.port or 8086 })
+		end
+
 		-- UI
 
 		dap_ui.setup({

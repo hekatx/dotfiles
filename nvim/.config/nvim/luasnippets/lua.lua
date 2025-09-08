@@ -53,13 +53,16 @@ cs(
 	{ trig = "snip", name = "snippet" },
 	fmt(
 		[[
-cs({{ trig = '{}', name = "{}" }}, fmt({}) )]],
+cs({{ trig = '{}', name = "{}" }}, fmt({}, {{ {} }}) )]],
 		{
 			i(1, "trigger"),
 			i(2, "name"),
 			i(3, "content"),
+			i(4, "insertions"),
 		}
 	)
 )
+
+cs({ trig = "i", name = "insertion node" }, fmt([[i({}, {}),]], { i(1, "index"), i(2, "placeholder") }))
 
 return snippets

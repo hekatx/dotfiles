@@ -2,74 +2,96 @@ return {
 	-- Lsp related plugins
 	"nvim-lua/plenary.nvim",
 
-	-- Colorschemes
-	"olivercederborg/poimandres.nvim",
-
 	-- Motions and useful commands
 	"tpope/vim-surround",
-	{
-		"windwp/nvim-ts-autotag",
-		opts = {
-			filetypes = { "reason" },
-		},
-	},
 	"tpope/vim-abolish",
+
 	-- Misc
-	"lewis6991/impatient.nvim",
 	"kevinhwang91/nvim-bqf",
 	{
 		"rebelot/kanagawa.nvim",
 		config = true,
 	},
-	{
-		"ms-jpq/coq.thirdparty",
-		branch = "3p",
-	},
-	"danielo515/nvim-treesitter-reason",
-	{ "rescript-lang/vim-rescript", ft = "rescript" },
 	"nvim-treesitter/playground",
-	-- {
-	-- 	"NeogitOrg/neogit",
-	-- 	config = true,
-	-- 	dependencies = {
-	-- 		"nvim-lua/plenary.nvim", -- required
-	-- 		"sindrets/diffview.nvim", -- optional - Diff integration
-	-- 		"nvim-telescope/telescope.nvim", -- optional
-	-- 	},
-	-- },
-	{ "folke/neodev.nvim", opts = {} },
-	{
-		dir = "~/Projects/tw", -- Your path
-		name = "tw",
-		config = function()
-			require("tw")
-		end,
-	},
-	"MunifTanjim/nui.nvim",
-	{
-		"samjwill/nvim-unception",
-		init = function()
-			-- Optional settings go here!
-			-- e.g.) vim.g.unception_open_buffer_in_new_tab = true
-		end,
-	},
 	{
 		"stevearc/oil.nvim",
 		opts = {},
 		-- Optional dependencies
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
-
-	{ "rescript-lang/vim-rescript", ft = "rescript" },
+	{
+		"dmmulroy/tsc.nvim",
+		config = true,
+	},
+	{
+		"zenbones-theme/zenbones.nvim",
+		dependencies = "rktjmp/lush.nvim",
+	},
+	{
+		"codethread/qmk.nvim",
+		config = function()
+			require("qmk").setup({
+				name = "totem",
+				variant = "zmk",
+				layout = {
+					"_ x x x x x _ x x x x x _",
+					"_ x x x x x _ x x x x x _",
+					"x x x x x x _ x x x x x x",
+					"_ _ _ x x x _ x x x _ _ _",
+				},
+			})
+		end,
+	},
 
 	{
-		dir = "~/Projects/neogit", -- Your path
-		name = "neogit",
-		config = true,
+		"pmizio/typescript-tools.nvim",
+		dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+		opts = {},
+	},
+	{
+		"junegunn/fzf",
+	},
+	{
+    dir = "~/projects/neogit",
 		dependencies = {
-			"nvim-lua/plenary.nvim", -- required
-			"sindrets/diffview.nvim", -- optional - Diff integration
-			"nvim-telescope/telescope.nvim", -- optional
+			"nvim-lua/plenary.nvim",
 		},
 	},
+	"nvzone/volt",
+	{
+		"folke/lazydev.nvim",
+		ft = "lua", -- only load on lua files
+		opts = {
+			library = {
+				-- See the configuration section for more details
+				-- Load luvit types when the `vim.uv` word is found
+				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+			},
+		},
+	},
+	{
+		"stevearc/conform.nvim",
+		opts = {
+			formatters_by_ft = {
+				javascript = { "biome", "eslint", stop_after_first = true },
+				javascriptreact = { "biome", "eslint", stop_after_first = true },
+				typescript = { "biome", "eslint", stop_after_first = true },
+				typescriptreact = { "biome", "eslint", stop_after_first = true },
+			},
+			format_on_save = {
+				-- These options will be passed to conform.format()
+				timeout_ms = 500,
+				lsp_format = "fallback",
+			},
+		},
+	},
+  "tpope/vim-fugitive",
+  "tpope/vim-dadbod",
+  "kristijanhusak/vim-dadbod-completion",
+  "kristijanhusak/vim-dadbod-ui",
+  "webhooked/kanso.nvim",
+  {
+    "brianhuster/unnest.nvim",
+    lazy = false
+  }
 }

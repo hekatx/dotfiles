@@ -1,12 +1,14 @@
 local u = require("core/utils")
 
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+  local dap = require'dap'
+  local dap_ui = require'dapui'
 
 -- Telescope maps
 u.map("n", "<leader>tf", "<cmd>Telescope find_files<cr>", { desc = "[Telescope] - Find files under cwd" })
 u.map("n", "<leader>tg", "<cmd>Telescope live_grep<cr>", { desc = "[Telescope] - Grep in cwd" })
 u.map("n", "<leader>tu", "<cmd>Telescope buffers<cr>", { desc = "[Telescope] - List all open buffers" })
-u.map("n", "<leader>tb", "<cmd>Telescope file_browser<cr>", { noremap = true, desc = "[Telescope] - File browser" })
 u.map("n", "<leader>tm", "<cmd>Telescope keymaps<cr>", { desc = "[Telescope] - List all keymaps" })
 
 -- Neogit
@@ -21,10 +23,17 @@ u.map("n", "<f7>", "<cmd>lua require('dap').step_over()<cr>", { desc = "[DAP] - 
 u.map("n", "<f8>", "<cmd>lua require('dap').step_into()<cr>", { desc = "[DAP] - Step into" })
 u.map("n", "<f9>", "<cmd>lua require('dap').step_out()<cr>", { desc = "[DAP] - Step out" })
 u.map("n", "<f5>", "<cmd>lua require('dap').continue()<cr>", { desc = "[DAP] - Continue program execution" })
-u.map("n", "<f6>", "<cmd>lua require('dap').terminate()<cr>", { desc = "[DAP] - Terminate debugging session" })
+u.map("n", "<f6>",  function()
+  dap.terminate()
+  dap_ui.close()
+end
+  , { desc = "[DAP] - Terminate debugging session" })
 
 u.map("n", "<leader>dt", "<cmd>lua require('dap-go').debug_test()<cr>", { desc = "[DAP] - {go} - Debug Golang test" })
 u.map("n", "<leader>dp", "<cmd>lua require('dap.ui.widgets').hover()<cr>", { desc = "[DAP] - Hover var under cursor" })
+vim.keymap.set('n', '<leader>dl', function()
+  require"osv".launch({port = 8086})
+end, { noremap = true })
 
 -- Hop
 u.map("n", "<leader>h", "<cmd>lua require('hop').hint_words()<cr>", { desc = "[Hop] - Hints all words in the buffer" })
@@ -41,4 +50,5 @@ u.map("n", "<leader>cb", "<cmd>! cmake -S . -B ./build && make -C ./build && ./b
 
 u.map("n", "<leader>+", "<cmd>source $MYVIMRC<CR>", { desc = "Reload nvim config" })
 
-u.map("n", "<leader>oj", "<cmd>Neorg journal<CR>")
+u.map("t", "<Esc>", "<C-\\><C-n>")
+u.map("n", "<leader>il", "<cmd>Oil<CR>")

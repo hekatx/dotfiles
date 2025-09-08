@@ -1,5 +1,5 @@
 return {
-	"phaazon/hop.nvim",
-	branch = "v1",
+	"smoka7/hop.nvim",
+	version = "*",
 	opts = { keys = "etovxqpdygfblzhckisuran" },
 }
