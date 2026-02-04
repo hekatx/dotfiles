@@ -1,32 +1,9 @@
 return {
   "nvim-treesitter/nvim-treesitter",
+  lazy = false,
+  build = ":TSUpdate",
   opts = {
-    auto_install = true,
-    sync_install = false,
-    autotag = {
-      enable = true,
-    },
-    highlight = {
-      enable = true,
-    },
-    indent = {
-      enable = true,
-    },
-    ensure_installed = {
-      "tsx",
-      "html",
-      "css",
-      "typescript",
-      "javascript",
-      "json",
-      "yaml",
-      "go",
-      "cpp",
-      "lua",
-      "rust",
-      "markdown",
-    },
-    ignore_install = {},
-    modules = {},
-  }
+    ensure_installed = { "c", "lua", "vim", "vimdoc", "query" },
+    highlight = { enable = true },
+  },
 }

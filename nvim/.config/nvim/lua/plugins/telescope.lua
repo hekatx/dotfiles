@@ -1,20 +1,19 @@
 return {
-	"nvim-telescope/telescope.nvim",
-	dependencies = {
-		"kyazdani42/nvim-web-devicons",
-		"nvim-lua/plenary.nvim",
-	},
+  "nvim-telescope/telescope.nvim",
+  dependencies = {
+    "kyazdani42/nvim-web-devicons",
+    "nvim-lua/plenary.nvim",
+  },
 
-	config = function()
-		local telescope = require("telescope")
+  config = function()
+    local telescope = require("telescope")
 
-		telescope.setup({
-			defaults = {
-				file_ignore_patterns = {
-					"node_modules",
-					"CMakeFiles",
-				},
-			},
-		})
-	end,
+    telescope.setup({
+      defaults = {
+        file_ignore_patterns = {
+          "CMakeFiles",
+        },
+      },
+    })
+  end,
 }

@@ -40,6 +40,20 @@ vim.api.nvim_set_keymap(
   { desc = "Run Watch File" }
 )
 
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>tn",
+  "<cmd>lua require('neotest').run.run()<cr>",
+  { desc = "Run Watch File" }
+)
+
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>to",
+  "<cmd>lua require('neotest').summary()<cr>",
+  { desc = "Run Watch File" }
+)
+
 vim.keymap.set('n', '<leader>dl', function()
   require "osv".launch({ port = 8086 })
 end, { noremap = true })
