@@ -6,11 +6,15 @@ local M = {
 		"hrsh7th/cmp-path",
 		"hrsh7th/cmp-nvim-lsp",
 		"rafamadriz/friendly-snippets",
+
+		"windwp/nvim-autopairs",
 	},
 }
 
 M.config = function()
 	local cmp = require("cmp")
+	local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+	cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done())
 	cmp.setup({
 		completion = {
 			autocomplete = false,
@@ -38,11 +42,11 @@ M.config = function()
 		}),
 	})
 
-  cmp.setup.filetype({ "sql" }, {
-    sources = {
-      { name = "vim-dadbod-completion" }
-    }
-  })
+	cmp.setup.filetype({ "sql" }, {
+		sources = {
+			{ name = "vim-dadbod-completion" },
+		},
+	})
 end
 
 return M

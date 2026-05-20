@@ -15,8 +15,8 @@ local btoa = vim.base64.encode(vim.env.JIRA_USER .. ":" .. vim.env.JIRA_API_TOKE
 -- vim.print(btoa);
 
 local request_body = {
-	jql = 'project = AGL99036 AND assignee = currentUser() AND Sprint = "PI5_2025 Postorder Sprint 4" AND status != Done ORDER BY created DESC',
-	maxResults = 15,
+	jql = 'project = AGL99036 AND assignee = currentUser() AND Sprint = "PI5_2025 Postorder Sprint 6" AND status != Done ORDER BY created DESC',
+	maxResults = 16,
 	fields = { "summary", "issuetype" },
 }
 

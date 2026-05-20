@@ -30,5 +30,6 @@ require("core/maps")
 require("core/colors")
 require("core/lsp")
 require("personal-plugins/jpj")
+require("personal-plugins/qfsave")
 
 return s

@@ -1,7 +1,7 @@
 local js_conform_formatters = {
-	"biome",
-	"eslint_d",
-	"eslint",
+	-- "biome",
+	-- "eslint_d",
+	-- "eslint",
 	stop_after_first = true,
 }
 return {
@@ -94,7 +94,6 @@ return {
 		"brianhuster/unnest.nvim",
 		lazy = false,
 	},
-	{ "windwp/nvim-ts-autotag", opts = {} },
 
 	{
 		"OXY2DEV/markview.nvim",
