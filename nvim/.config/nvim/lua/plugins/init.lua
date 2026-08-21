@@ -114,4 +114,10 @@ return {
 		dependencies = { "MunifTanjim/nui.nvim" },
 		cmd = "CodeDiff",
 	},
+	"jrop/morph.nvim",
+	{
+		"brenoprata10/nvim-highlight-colors",
+		lazy = false,
+		config = true,
+	},
 }
