@@ -1,9 +1,4 @@
---[[
-    Neovim init
-
-    Last modified: 17/02/2023
-    By: éka
---]]
+-- Neovim init
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -20,18 +15,15 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	end
 end
 vim.opt.rtp:prepend(lazypath)
-require("core/settings")
+
+require("core.settings")
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-local s = require("lazy").setup("plugins")
+require("lazy").setup("plugins")
 
-require("core/maps")
-require("core/colors")
-require("core/lsp")
-require("personal-plugins/jpj")
-require("personal-plugins/qfsave")
-require("personal-plugins/tempo")
-require("personal-plugins/jira")
-
-return s
+require("core.maps")
+require("core.colors")
+require("core.lsp")
+require("personal-plugins.qfsave")
+require("personal-plugins.tempo")

@@ -12,8 +12,6 @@ local function cs(trigger, nodes)
 	table.insert(snippets, snippet)
 end
 
-local function isInTestFile() end
-
 cs(
 	{ trig = "tfail", name = "fatal assertion for tests" },
 	fmt(

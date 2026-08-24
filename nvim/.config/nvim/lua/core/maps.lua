@@ -1,80 +1,9 @@
-local u = require("core/utils")
-
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
--- local dap = require 'dap'
--- local dap_ui = require 'dapui'
-
--- Telescope maps
-u.map("n", "<leader>tf", "<cmd>Telescope find_files<cr>", { desc = "[Telescope] - Find files under cwd" })
-u.map("n", "<leader>th", "<cmd>Telescope find_files find_command=rg,--ignore,--hidden,--files<cr>",
-  { desc = "[Telescope] - Find files under cwd" })
-u.map("n", "<leader>tg", "<cmd>Telescope live_grep<cr>", { desc = "[Telescope] - Grep in cwd" })
-u.map("n", "<leader>tu", "<cmd>Telescope buffers<cr>", { desc = "[Telescope] - List all open buffers" })
-u.map("n", "<leader>tm", "<cmd>Telescope keymaps<cr>", { desc = "[Telescope] - List all keymaps" })
-
--- Neogit
-u.map("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "[Neogit] - Open neogit" })
-
--- Oil
-u.map("n", "<leader>ll", "<cmd>Oil<cr>", { desc = "[Oil] - Open oil" })
-
--- DAP
--- u.map("n", "<f12>", "<cmd>lua require('dap').toggle_breakpoint()<cr>", { desc = "[DAP] - Toggle breakpoint" })
--- u.map("n", "<f7>", "<cmd>lua require('dap').step_over()<cr>", { desc = "[DAP] - Step over" })
--- u.map("n", "<f8>", "<cmd>lua require('dap').step_into()<cr>", { desc = "[DAP] - Step into" })
--- u.map("n", "<f9>", "<cmd>lua require('dap').step_out()<cr>", { desc = "[DAP] - Step out" })
--- u.map("n", "<f5>", "<cmd>lua require('dap').continue()<cr>", { desc = "[DAP] - Continue program execution" })
--- u.map("n", "<f6>", function()
---   dap.terminate()
---   dap_ui.close()
--- end
--- , { desc = "[DAP] - Terminate debugging session" })
---
--- u.map("n", "<leader>dt", "<cmd>lua require('dap-go').debug_test()<cr>", { desc = "[DAP] - {go} - Debug Golang test" })
--- u.map("n", "<leader>dp", "<cmd>lua require('dap.ui.widgets').hover()<cr>", { desc = "[DAP] - Hover var under cursor" })
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>tw",
-  "<cmd>lua require('neotest').run.run({ vim.fn.expand('%'), vitestCommand = 'vitest --watch' })<cr>",
-  { desc = "Run Watch File" }
-)
-
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>tn",
-  "<cmd>lua require('neotest').run.run()<cr>",
-  { desc = "Run Watch File" }
-)
-
-vim.api.nvim_set_keymap(
-  "n",
-  "<leader>to",
-  "<cmd>lua require('neotest').summary()<cr>",
-  { desc = "Run Watch File" }
-)
-
-vim.keymap.set('n', '<leader>dl', function()
-  require "osv".launch({ port = 8086 })
-end, { noremap = true })
-
--- Hop
-u.map("n", "<leader>h", "<cmd>lua require('hop').hint_words()<cr>", { desc = "[Hop] - Hints all words in the buffer" })
-u.map(
-  "n",
-  "<leader>j",
-  "<cmd>lua require('hop').hint_words({ current_line_only = true})<cr>",
-  { desc = "[Hop] - Hints all words in the current line" }
-)
+local map = vim.keymap.set
 
 -- Miscellaneous
-u.map("v", "<leader>p", '"_dP', { desc = "[Misc] - Paste in place without losing the yanked stuff" })
-u.map("n", "<leader>cb", "<cmd>! cmake -S . -B ./build && make -C ./build && ./build/learn_opengl<cr>", {})
-
-u.map("n", "<leader>+", "<cmd>source $MYVIMRC<CR>", { desc = "Reload nvim config" })
-
-u.map("t", "<Esc>", "<C-\\><C-n>")
-u.map("n", "<leader>il", "<cmd>Oil<CR>")
-
--- LSP
-u.map("n", "<leader>ld", "<cmd><cr>", { desc = "[TS-Tools] Go to definition" })
+map("v", "<leader>p", '"_dP', { desc = "[Misc] Paste in place without losing the yanked stuff" })
+map("n", "<leader>cb", "<cmd>! cmake -S . -B ./build && make -C ./build && ./build/learn_opengl<cr>", {
+	desc = "Build and run LearnOpenGL",
+})
+map("n", "<leader>+", "<cmd>source $MYVIMRC<CR>", { desc = "Reload nvim config" })
+map("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })

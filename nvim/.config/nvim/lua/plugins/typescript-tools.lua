@@ -1,8 +1,7 @@
 return {
 	"pmizio/typescript-tools.nvim",
+	ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
 	dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-	enabled = true,
-	lazy = false,
 	opts = {
 		tsserver_file_preferences = {
 			autoImportFileExcludePatterns = {
@@ -11,7 +10,7 @@ return {
 		},
 	},
 	keys = {
-		{ "gri", "<cmd>TSToolsGoToSourceDefinition<cr>", desc = "[TS-Tools] Go to definition" },
-		{ "<leader>mi", "<cmd>TSToolsAddMissingImports<cr>", desc = "[TS-Tools] Add missing imports" },
+		{ "gri", "<cmd>TSToolsGoToSourceDefinition<cr>", desc = "Go to source definition" },
+		{ "<leader>mi", "<cmd>TSToolsAddMissingImports<cr>", desc = "Add missing imports" },
 	},
 }

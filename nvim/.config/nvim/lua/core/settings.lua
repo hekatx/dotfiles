@@ -1,23 +1,21 @@
-local o = vim.o
-local wo = vim.wo
+vim.opt.relativenumber = true
+vim.opt.number = true
+vim.opt.wrap = false
 
-wo.relativenumber = true
-wo.number = true
-wo.wrap = false
+vim.opt.smartcase = true
+vim.opt.ignorecase = true
+vim.opt.hlsearch = false
+vim.opt.swapfile = false
+vim.opt.clipboard = "unnamedplus"
+vim.opt.termguicolors = true
 
-o.smartcase = true
-o.ignorecase = true
-o.hlsearch = false
-o.swapfile = false
-o.clipboard = "unnamedplus"
-o.termguicolors = true
+vim.opt.shiftwidth = 2
+vim.opt.tabstop = 2
+vim.opt.expandtab = true
+vim.opt.smartindent = true
 
-o.shiftwidth = 2
-o.tabstop = 2
-o.expandtab = true
-o.smartindent = true
+vim.opt.scrolloff = 10
 
-o.scrolloff = 10
-
-
-vim.g.python3_host_prog = "/usr/bin/python3"
+if vim.fn.executable("python3") == 1 then
+	vim.g.python3_host_prog = vim.fn.exepath("python3")
+end

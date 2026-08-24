@@ -1,39 +1,29 @@
-local js_conform_formatters = {
-	-- "biome",
-	-- "eslint_d",
-	-- "eslint",
-	stop_after_first = true,
-}
 return {
-	-- Lsp related plugins
-	"nvim-lua/plenary.nvim",
-
-	-- Motions and useful commands
-	"tpope/vim-surround",
-	"tpope/vim-abolish",
-
-	-- Misc
-	"kevinhwang91/nvim-bqf",
+	{ "tpope/vim-surround", event = "VeryLazy" },
+	{ "tpope/vim-abolish", event = "VeryLazy" },
+	{ "kevinhwang91/nvim-bqf", ft = "qf" },
 	{
 		"rebelot/kanagawa.nvim",
+		lazy = false,
 		config = true,
 	},
 	{
 		"stevearc/oil.nvim",
+		cmd = "Oil",
+		keys = {
+			{ "<leader>ll", "<cmd>Oil<cr>", desc = "Open Oil" },
+		},
 		opts = {},
-		-- Optional dependencies
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 	},
 	{
 		"dmmulroy/tsc.nvim",
+		cmd = "TSC",
 		config = true,
 	},
 	{
-		"zenbones-theme/zenbones.nvim",
-		dependencies = "rktjmp/lush.nvim",
-	},
-	{
 		"codethread/qmk.nvim",
+		ft = { "dts", "keymap" },
 		config = function()
 			require("qmk").setup({
 				name = "totem",
@@ -48,73 +38,69 @@ return {
 		end,
 	},
 	{
-		"junegunn/fzf",
-	},
-	{
-		dir = "~/projects/neogit",
-		dependencies = {
-			"nvim-lua/plenary.nvim",
+		dir = vim.fn.expand("~/projects/neogit"),
+		name = "neogit",
+		cmd = "Neogit",
+		keys = {
+			{ "<leader>gg", "<cmd>Neogit<cr>", desc = "Open Neogit" },
 		},
+		dependencies = { "nvim-lua/plenary.nvim" },
 	},
-	"nvzone/volt",
 	{
 		"folke/lazydev.nvim",
-		ft = "lua", -- only load on lua files
+		ft = "lua",
 		opts = {
 			library = {
-				-- See the configuration section for more details
-				-- Load luvit types when the `vim.uv` word is found
 				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
 			},
 		},
 	},
 	{
 		"stevearc/conform.nvim",
+		event = { "BufReadPre", "BufNewFile" },
 		opts = {
-			formatters_by_ft = {
-				javascript = js_conform_formatters,
-				javascriptreact = js_conform_formatters,
-				typescript = js_conform_formatters,
-				typescriptreact = js_conform_formatters,
-			},
-
 			format_on_save = {
-				-- These options will be passed to conform.format()
 				timeout_ms = 500,
 				lsp_format = "fallback",
 			},
 		},
 	},
-	"tpope/vim-fugitive",
-	"tpope/vim-dadbod",
-	"kristijanhusak/vim-dadbod-completion",
-	"kristijanhusak/vim-dadbod-ui",
-	"webhooked/kanso.nvim",
 	{
-		"brianhuster/unnest.nvim",
-		lazy = false,
+		"rest-nvim/rest.nvim",
+		cmd = { "Rest", "Jpj" },
+		dependencies = {
+			"nvim-neotest/nvim-nio",
+			"nvim-telescope/telescope.nvim",
+		},
+		config = function()
+			require("personal-plugins.jpj")
+		end,
 	},
-
+	{ "tpope/vim-fugitive", cmd = "Git" },
+	{
+		"tpope/vim-dadbod",
+		cmd = "DB",
+	},
+	{
+		"kristijanhusak/vim-dadbod-completion",
+		ft = "sql",
+		dependencies = { "tpope/vim-dadbod" },
+	},
+	{
+		"kristijanhusak/vim-dadbod-ui",
+		cmd = "DBUI",
+		dependencies = { "tpope/vim-dadbod" },
+	},
 	{
 		"OXY2DEV/markview.nvim",
-		lazy = false,
-
-		-- Completion for `blink.cmp`
-		-- dependencies = { "saghen/blink.cmp" },
+		ft = { "markdown", "norg" },
 	},
-
-	"rest-nvim/rest.nvim",
-	"nvim-neotest/nvim-nio",
 	{ "nvim-mini/mini.statusline", version = false, config = true },
-	{ "nvim-mini/mini-git", version = false },
-
-	{ "nvim-mini/mini.diff", version = false },
 	{
 		"esmuellert/codediff.nvim",
-		dependencies = { "MunifTanjim/nui.nvim" },
 		cmd = "CodeDiff",
+		dependencies = { "MunifTanjim/nui.nvim" },
 	},
-	"jrop/morph.nvim",
 	{
 		"brenoprata10/nvim-highlight-colors",
 		lazy = false,

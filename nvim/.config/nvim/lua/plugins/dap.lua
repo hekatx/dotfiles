@@ -1,9 +1,26 @@
 return {
   "mfussenegger/nvim-dap",
+  cmd = {
+    "DapContinue",
+    "DapToggleBreakpoint",
+    "DapStepOver",
+    "DapStepInto",
+    "DapStepOut",
+    "DapTerminate",
+    "DapToggleRepl",
+  },
+  keys = {
+    {
+      "<leader>dl",
+      function()
+        require("osv").launch({ port = 8086 })
+      end,
+      desc = "Launch Lua debug server",
+    },
+  },
   dependencies = {
     "leoluz/nvim-dap-go",
     "rcarriga/nvim-dap-ui",
-    "theHamsta/nvim-dap-virtual-text",
     "mxsdev/nvim-dap-vscode-js",
     "jbyuki/one-small-step-for-vimkind",
     "nvim-neotest/nvim-nio",
@@ -15,9 +32,13 @@ return {
     -- Go
     require("dap-go").setup()
     -- CPP
+    local lldb = vim.fn.exepath("lldb-vscode")
+    if lldb == "" then
+      lldb = vim.fn.exepath("lldb-dap")
+    end
     dap.adapters.lldb = {
       type = "executable",
-      command = "/usr/bin/lldb-vscode",
+      command = lldb ~= "" and lldb or "lldb-vscode",
       name = "lldb",
     }
 
@@ -49,8 +70,8 @@ return {
     }
 
     dap_vscode_js.setup({
-      node_path = "node",
-      debugger_path = os.getenv("HOME") .. "/.DAP/vscode-js-debug",
+      node_path = vim.fn.exepath("node") ~= "" and vim.fn.exepath("node") or "node",
+      debugger_path = vim.fn.stdpath("data") .. "/mason/packages/js-debug-adapter",
       adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
     })
 

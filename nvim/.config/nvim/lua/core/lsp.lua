@@ -1,35 +1,58 @@
 -- :h lsp-config
 
--- enable lsp completion
 vim.api.nvim_create_autocmd("LspAttach", {
-  group = vim.api.nvim_create_augroup("UserLspAttach", { clear = true }),
-  callback = function(ev)
-    vim.lsp.completion.enable(true, ev.data.client_id, ev.buf)
-    local opts = { noremap = true, silent = true }
-    -- See `:help vim.lsp.*` for documentation on any of the below functions
-    vim.api.nvim_buf_set_keymap(ev.buf, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(ev.buf, 'n', '<leader>ld', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(ev.buf, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(ev.buf, 'n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(ev.buf, 'n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(ev.buf, 'n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(ev.buf, 'n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(ev.buf, 'n', '<leader>wl',
-      '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-    vim.api.nvim_buf_set_keymap(ev.buf, 'n', '<leader>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(ev.buf, 'n', '<leader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(ev.buf, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(ev.buf, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(ev.buf, 'n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-  end,
+	group = vim.api.nvim_create_augroup("UserLspAttach", { clear = true }),
+	callback = function(ev)
+		local opts = { buffer = ev.buf, noremap = true, silent = true }
+		local map = vim.keymap.set
+
+		map("n", "gD", vim.lsp.buf.declaration, vim.tbl_extend("force", opts, {
+			desc = "Go to declaration",
+		}))
+		map("n", "<leader>ld", vim.lsp.buf.definition, vim.tbl_extend("force", opts, {
+			desc = "Go to definition",
+		}))
+		map("n", "K", vim.lsp.buf.hover, vim.tbl_extend("force", opts, {
+			desc = "Show hover documentation",
+		}))
+		map("n", "gi", vim.lsp.buf.implementation, vim.tbl_extend("force", opts, {
+			desc = "Go to implementation",
+		}))
+		map("n", "<C-k>", vim.lsp.buf.signature_help, vim.tbl_extend("force", opts, {
+			desc = "Show signature help",
+		}))
+		map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, vim.tbl_extend("force", opts, {
+			desc = "Add workspace folder",
+		}))
+		map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, vim.tbl_extend("force", opts, {
+			desc = "Remove workspace folder",
+		}))
+		map("n", "<leader>wl", function()
+			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+		end, vim.tbl_extend("force", opts, {
+			desc = "List workspace folders",
+		}))
+		map("n", "<leader>D", vim.lsp.buf.type_definition, vim.tbl_extend("force", opts, {
+			desc = "Go to type definition",
+		}))
+		map("n", "<leader>rn", vim.lsp.buf.rename, vim.tbl_extend("force", opts, {
+			desc = "Rename symbol",
+		}))
+		map("n", "<leader>ca", vim.lsp.buf.code_action, vim.tbl_extend("force", opts, {
+			desc = "Code action",
+		}))
+		map("n", "gr", vim.lsp.buf.references, vim.tbl_extend("force", opts, {
+			desc = "List references",
+		}))
+		map("n", "<leader>f", vim.lsp.buf.format, vim.tbl_extend("force", opts, {
+			desc = "Format buffer",
+		}))
+	end,
 })
 
--- enable configured language servers
--- you can find server configurations from lsp/*.lua files
-vim.lsp.enable('gopls')
-vim.lsp.enable('lua_ls')
-vim.lsp.enable('tailwindcss-language-server')
-vim.lsp.enable('cssls')
-vim.lsp.enable('qml')
--- Disabled in favor of typescript-tools.nvim
--- vim.lsp.enable('ts_ls')
+-- Enable configured language servers.
+vim.lsp.enable("gopls")
+vim.lsp.enable("lua_ls")
+vim.lsp.enable("tailwindcss-language-server")
+vim.lsp.enable("cssls")
+vim.lsp.enable("qml")

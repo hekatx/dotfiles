@@ -1,50 +1,59 @@
-local rest = require("rest-nvim.client.curl.cli")
-local nio = require("nio")
-local pickers = require("telescope.pickers")
-local finders = require("telescope.finders")
-local conf = require("telescope.config").values
-local actions = require("telescope.actions")
-local action_state = require("telescope.actions.state")
+local M = {}
 
--- internal methods
-local main = {}
-local btoa = vim.base64.encode(vim.env.JIRA_USER .. ":" .. vim.env.JIRA_API_TOKEN)
+function M.create_branch_from_ticket()
+	local rest = require("rest-nvim.client.curl.cli")
+	local nio = require("nio")
+	local pickers = require("telescope.pickers")
+	local finders = require("telescope.finders")
+	local conf = require("telescope.config").values
+	local actions = require("telescope.actions")
+	local action_state = require("telescope.actions.state")
 
--- vim.print(btoa)
+	local user = vim.env.JIRA_USER
+	local token = vim.env.JIRA_API_TOKEN
+	local instance = vim.env.JIRA_INSTANCE
+	if not user or not token or not instance then
+		vim.notify("JIRA_USER, JIRA_API_TOKEN, and JIRA_INSTANCE are required", vim.log.levels.WARN)
+		return
+	end
 
--- vim.print(btoa);
+	local request_body = {
+		jql = 'project = AGL99036 AND assignee = currentUser() AND Sprint = "PI5_2025 Postorder Sprint 6" AND status != Done ORDER BY created DESC',
+		maxResults = 16,
+		fields = { "summary", "issuetype" },
+	}
+	local authorization = vim.base64.encode(user .. ":" .. token)
 
-local request_body = {
-	jql = 'project = AGL99036 AND assignee = currentUser() AND Sprint = "PI5_2025 Postorder Sprint 6" AND status != Done ORDER BY created DESC',
-	maxResults = 16,
-	fields = { "summary", "issuetype" },
-}
-
-local cached_response = nil
-
-function main.create_branch_from_ticket()
 	nio.run(function()
-		local _, res = pcall(rest.request({
-			method = "POST",
-			url = vim.env.JIRA_INSTANCE .. "/rest/api/3/search/jql",
-			cookies = {},
-			headers = {
-				["Authorization"] = { "Basic " .. btoa },
-				["content-type"] = { "application/json" },
-				["accepts"] = { "application/json" },
-			},
-			body = {
-				__TYPE = "json",
-				data = vim.json.encode(request_body),
-			},
-		}).wait)
+		local ok, response = pcall(function()
+			return rest.request({
+				method = "POST",
+				url = instance .. "/rest/api/3/search/jql",
+				cookies = {},
+				headers = {
+					["Authorization"] = { "Basic " .. authorization },
+					["content-type"] = { "application/json" },
+					["accept"] = { "application/json" },
+				},
+				body = {
+					__TYPE = "json",
+					data = vim.json.encode(request_body),
+				},
+			}).wait()
+		end)
 
-		local issues = vim.json.decode(res.body).issues
+		if not ok or not response or response.body == nil then
+			vim.notify("Unable to fetch Jira tickets", vim.log.levels.WARN)
+			return
+		end
 
-		local opts = opts or {}
+		local decoded = vim.json.decode(response.body)
+		local issues = decoded.issues or {}
+		local opts = {}
+
 		pickers
 			.new(opts, {
-				prompt_title = "colors",
+				prompt_title = "Jira tickets",
 				finder = finders.new_table({
 					results = issues,
 					entry_maker = function(entry)
@@ -60,16 +69,16 @@ function main.create_branch_from_ticket()
 					actions.select_default:replace(function()
 						actions.close(prompt_bufnr)
 						local selection = action_state.get_selected_entry()
-						local types = {
+						if not selection then
+							return
+						end
+
+						local prefixes = {
 							["Sub-Tarea"] = "feat",
 							["Defecto"] = "fix",
 						}
-						vim.system({
-							"git",
-							"switch",
-							"-c",
-							types[selection.value.fields.issuetype.name] .. "/" .. selection.value.key,
-						})
+						local prefix = prefixes[selection.value.fields.issuetype.name] or "chore"
+						vim.system({ "git", "switch", "-c", prefix .. "/" .. selection.value.key })
 					end)
 					return true
 				end,
@@ -79,5 +88,5 @@ function main.create_branch_from_ticket()
 end
 
 vim.api.nvim_create_user_command("Jpj", function()
-	main.create_branch_from_ticket()
-end, {})
+	M.create_branch_from_ticket()
+end, { desc = "Create a branch from a Jira ticket" })

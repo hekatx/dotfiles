@@ -1,55 +1,38 @@
-local M = {
+return {
 	"L3MON4D3/LuaSnip",
+	event = "InsertEnter",
+	config = function()
+		local ls = require("luasnip")
+
+		ls.filetype_extend("typescriptreact", { "typescript" })
+		ls.filetype_extend("javascriptreact", { "typescript" })
+		ls.filetype_extend("javascript", { "typescript" })
+		ls.filetype_extend("astro", { "typescript" })
+		require("luasnip.loaders.from_lua").load({
+			paths = vim.fn.stdpath("config") .. "/luasnippets",
+		})
+
+		ls.config.set_config({
+			history = true,
+			store_selection_keys = "<Tab>",
+			enable_autosnippets = true,
+		})
+
+		vim.keymap.set({ "i", "s" }, "<C-k>", function()
+			if ls.expand_or_jumpable() then
+				ls.expand_or_jump()
+			end
+		end, { silent = true })
+
+		vim.keymap.set({ "i", "s" }, "<C-j>", function()
+			if ls.jumpable(-1) then
+				ls.jump(-1)
+			end
+		end, { silent = true })
+
+		vim.keymap.set("i", "<C-u>", require("luasnip.extras.select_choice"))
+		vim.api.nvim_create_user_command("LuaSnipEdit", function()
+			require("luasnip.loaders").edit_snippet_files()
+		end, { bang = true })
+	end,
 }
-
-M.config = function()
-	local ls = require("luasnip")
-
-	ls.filetype_extend("typescriptreact", { "typescript" })
-	ls.filetype_extend("javascriptreact", { "typescript" })
-	ls.filetype_extend("javascript", { "typescript" })
-	ls.filetype_extend("astro", { "typescript" })
-	require("luasnip.loaders.from_lua").load({
-		paths = "~/.config/nvim/luasnippets/",
-	})
-
-	ls.config.set_config({
-		history = true,
-		store_selection_keys = "<Tab>",
-    enable_autosnippets = true
-	})
-
-	ls.add_snippets("all", {
-		ls.s("fuc", ls.t("SHIT FUCK")),
-	})
-
-	-- <c-k> is my expansion key
-	vim.keymap.set({ "i", "s" }, "<c-k>", function()
-		if ls.expand_or_jumpable() then
-			ls.expand_or_jump()
-		end
-	end, { silent = true })
-
-	-- <c-j> is my jump backwards key.
-	vim.keymap.set({ "i", "s" }, "<c-j>", function()
-		if ls.jumpable(-1) then
-			ls.jump(-1)
-		end
-	end, { silent = true })
-
-	-- <c-l> is selecting within a list of options.
-	vim.keymap.set({ "i", "s" }, "<c-l>", function()
-		if ls.choice_active() then
-			ls.change_choice(1)
-		end
-	end)
-
-	vim.keymap.set("i", "<c-u>", require("luasnip.extras.select_choice"))
-	vim.api.nvim_create_user_command(
-		"LuaSnipEdit",
-		'lua require("luasnip.loaders").edit_snippet_files()',
-		{ bang = true }
-	)
-end
-
-return M
